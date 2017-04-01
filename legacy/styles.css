@@ -1,0 +1,413 @@
+/*
+Design by Metamorphosis Design
+http://www.metamorphozis.com
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+img{
+    padding: 0px;
+    border: none;
+}
+
+a{
+    color: #a10304;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #e60001;
+}
+
+body {	
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 17px;
+    color: #000000;
+    background: #ffffff url(images/bga.jpg) repeat-x top;
+	width: 1014px;
+	margin: 0 auto;
+}
+
+h2{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	color: #d17b02;
+	padding-bottom: 5px;
+}
+
+h3{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	color: #a10304;
+	font-weight: normal;
+	padding-bottom: 20px;
+	line-height: 32px;
+}
+
+h4{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #a10304;
+	font-weight: normal;
+	text-transform: uppercase;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #a10304;
+}
+
+h5{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #a10304;
+	font-weight: normal;
+	text-transform: uppercase;
+	padding-bottom: 10px;
+	background: url(images/right_title.png) repeat-x bottom;
+	margin-bottom: 10px;
+}
+
+h6{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #a10304;
+	border-bottom: 1px solid #a10304;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+
+.clear{
+	clear: both;	
+}
+
+#menu{
+	width: 1050px;
+	height: 43px;
+	padding-top: 30px;
+}
+
+#menu ul{
+	padding-left: 0px;
+    list-style: none;
+	padding: 0px 0px 0px 10px;
+}
+
+#menu ul li{
+	display: inline;
+}
+
+#menu ul li a{
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+	text-align: center;
+    font-weight: normal;
+    text-decoration: none;
+    display: block;
+    float: left;
+    width: 124px;
+    height: 43px;
+	line-height: 43px;
+	margin-right: 4px;
+   	background: url(images/menu_bg.png) 0px 0px;
+}
+
+#menu ul li a:hover,  #menu ul li .active{
+	color: #ffffff;
+	background: url(images/menu_bg.png) 0px 43px;
+}
+
+/*logo*/
+
+#logo{
+	height: 50px;
+	padding-top: 20px;
+	text-align: right;
+}
+
+#logo h1 a{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#logo a small{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/*
+	prew box
+*/
+
+#prew_box{
+	background: url(images/prew_bg.jpg);
+	width: 984px;
+	height: 327px;
+	padding: 15px;
+}
+
+#prew_img{
+	width: 984px;
+	height: 327px;
+}
+
+.prew_img1{
+	background: url(images/prew_img1.jpg);
+}
+
+.button_left{
+	margin-top: 150px;
+	margin-left: 5px;
+	float: left;
+}
+
+.button_right{
+	margin-top: 150px;
+	margin-right: 5px;
+	float: right;
+}
+
+.razd{
+	border-top: 1px solid #a10304;
+	height: 1px;
+	border-bottom: 1px solid #a10304;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	clear: both;
+}
+
+/*
+	content
+*/
+
+#left{
+	float: left;
+	width: 1014px;
+	padding-right: 40px;
+}
+
+.left_razd{
+	height: 50px;
+}
+
+.images_box{
+	padding: 15px 0px 15px 0px;
+}
+
+.images_box a{
+	display: block;
+	float: left;
+}
+
+.center_img{
+	margin: 0px 10px 0px 10px;
+}
+
+.more{
+	
+}
+
+.more a{
+	display: block;
+	background: url(images/more.png) no-repeat;
+	width: 69px;
+	height: 16px;
+	float: right;
+	text-align: center;
+	line-height: 16px;
+	margin: 15px 0px 0px 0px;	
+}
+
+#right{
+	float: left;
+	width: 363px;
+}
+
+.right_bg_top{
+	background: url(images/right_top.png) no-repeat;
+	width: 363px;
+	height: 10px;
+}
+
+.right_bg{
+	background: url(images/right_bg.png) no-repeat;
+	min-height: 207px;
+	border-left: 1px solid #a10304;
+	border-right: 1px solid #a10304;
+	padding: 0px 20px 0px 20px;
+}
+
+.right_bg_bot{
+	background: url(images/right_bot.png) no-repeat;
+	width: 363px;
+	height: 10px;
+}
+
+.right_pad{
+	padding-bottom: 15px;
+}
+
+.italic_style{
+	font-style: italic;
+	clear: both;
+}
+
+.author{
+	float: right;
+	font-style: italic;
+	padding: 5px 0px 5px 0px;
+}
+
+/*
+	3column
+*/
+
+#column3{
+	clear: both;
+}
+
+#col1, #col2, #col3{
+	float: left;
+	width: 285px;
+}
+
+#col2{
+	padding-left: 79px;
+	padding-right: 79px;
+}
+
+.pad_left{
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+.ls{
+	list-style: none;
+}
+
+.ls li{
+	border-bottom: 1px solid #b5b5b5;
+}
+
+.ls li a{
+	font-size: 11px;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+#col1 .ls{
+	padding-top: 20px;
+}
+
+#col1 .ls li a{
+	font-size: 12px;
+	text-transform: none;
+}
+
+/*
+	footer
+*/
+
+#footer{
+	text-align: center;
+	padding-bottom: 15px;
+	font-size: 10px;
+}
+
+#footer p, #footer a{
+	text-decoration: none;
+	font-weight: normal;
+	color: #000000;
+	font-size: 10px;
+}
+
+
+/*=================================*/
+/* Nivo Slider Demo
+/* November 2010
+/* By: Gilbert Pellegrom
+/* http://dev7studios.com
+/*=================================*/
+
+
+#slider-wrapper {
+    background:url(images/top.jpg) no-repeat;
+    width:984px;
+    height: 327px;
+    margin:0 auto;
+}
+
+#slider {
+	position:relative;
+    width: 984px;
+    height: 327px;
+	background:url(images/loading.gif) no-repeat 50% 50%;
+}
+#slider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+}
+#slider a {
+	border:0;
+	display:block;
+}
+
+.nivo-controlNav {
+	position:absolute;
+	left:260px;
+	bottom:-42px;
+	display: none;
+}
+.nivo-controlNav a {
+	display:block;
+	width:22px;
+	height:22px;
+	background:url(images/bullets.png) no-repeat;
+	text-indent:-9999px;
+	border:0;
+	margin-right:3px;
+	float:left;
+}
+.nivo-controlNav a.active {
+	background-position:0 -22px;
+}
+
+.nivo-directionNav a {
+	display:block;
+	width:30px;
+	height:30px;
+	background:url(images/arrows.png) no-repeat;
+	text-indent:-9999px;
+	border:0;
+}
+a.nivo-nextNav {
+	background-position:-30px 0;
+	right:15px;
+}
+a.nivo-prevNav {
+	left:15px;
+}
+
+.nivo-caption {
+    text-shadow:none;
+    font-family: Helvetica, Arial, sans-serif;
+}
+.nivo-caption a { 
+    color:#efe9d1;
+    text-decoration:underline;
+}
+
+

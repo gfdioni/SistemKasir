@@ -1,0 +1,2 @@
+alter table batch add consraint fk_kode_obat_batch foreign key (kode_obat) references obat (kode_obat) on update cascade
+alter table etalase add constraint fk_kode_obat_etalase foreign key (kode_obat) references obat (kode_obat) on update cascade
