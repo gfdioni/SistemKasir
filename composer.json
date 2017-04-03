@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "Sistem Kasir",
+    "description": "Sistem Kasir",
+    "keywords": ["sistem","kasir"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -46,5 +46,11 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
     }
 }
