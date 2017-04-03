@@ -1,9 +1,9 @@
 <?php
-$koneksi=mysql_connect("localhost","root","masterodin");
+$koneksi=mysqli_connect("localhost","root","");
 if($koneksi){
 	//echo("Koneksi berhasil</br></br>");
 	//echo("<h2>SISTEM INFORMASI PEMBELIAN DAN PENJUALAN OBAT</h2><hr />");
-	mysql_select_db("apotek") or die ("</br> Database tidak ada");
+	mysqli_select_db($koneksi, "toko_obat_legacy") or die ("</br> Database tidak ada");
 }
 else{
 	echo("Koneksi gagal");

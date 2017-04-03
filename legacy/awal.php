@@ -1,9 +1,10 @@
 <h5>Selamat Datang</h5>
 <?php
 	include("koneksi.php");
+	
 	$query = "select * from awal";
-	$eks = mysql_query($query);
-	while($hasil = mysql_fetch_row($eks)){
+	$eks = mysqli_query($koneksi, $query);
+	while($hasil = mysqli_fetch_row($eks)){
 		echo $hasil[1];
 	}
 	
