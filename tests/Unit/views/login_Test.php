@@ -3,6 +3,9 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Symfony\Component\DomCrawler\Crawler;
+
+use View;
 
 class LoginTest extends TestCase
 {
@@ -11,10 +14,12 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function testEndpointExist()
+    public function testItShouldDisplayLoginForm()
     {
-        $response = $this->get('/login');
+        $html    = View::make("auth.login_page")->render();
+        $crawler = new Crawler($html);
 
-        $response->assertStatus(200);
+        $this->assertEquals(1, $crawler->filter('input[name="username"][type="text"]')->count());
+        $this->assertEquals(1, $crawler->filter('input[name="password"][type="password"]')->count());
     }
 }
