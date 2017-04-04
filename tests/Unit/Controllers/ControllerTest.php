@@ -9,5 +9,13 @@ class ControllerTest extends TestCase
         $path = route($routeName, $params);
         return $this->call($httpMethod, $path);
     }
+
+    protected function assertViewOnResponseIs($templateName, $response)
+    {
+        return $this->assertEquals(
+            $templateName,
+            $response->original->getName()
+        );
+    }
 }
 

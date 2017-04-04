@@ -10,5 +10,6 @@ class AuthController_Test extends ControllerTest
         $response = $this->sendRequest("get", 'login_page');
 
         $response->assertStatus(200);
+        $this->assertViewOnResponseIs('auth.login_page', $response);
     }
 }

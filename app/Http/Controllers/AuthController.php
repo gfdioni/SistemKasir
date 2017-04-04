@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function login_page() {
-        return response("Berhasil", 200);
+        return view('auth.login_page');
     }
 }
