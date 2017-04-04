@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return "Hello world";
-});
+Route::get('/login', [
+    "uses"  => "AuthController@login_page",
+    "as"    => "login_page",
+]);
