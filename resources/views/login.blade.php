@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-with,initial-scale=1">
 </head>
 <body>
+<center>
 <div class="cl">
 <form action="" method="post">
 <div class="il">
@@ -22,5 +23,6 @@
 <input type="hidden" name="vc" value="<?php print $ldt['vc'];?>">
 </form>
 </div>
+</center>
 </body>
 </html>
