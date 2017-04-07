@@ -8,18 +8,7 @@ class LoginController extends Controller
 {
 private function generateToken()
 	{
-		$a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890___";
-		$b = $c = $vc = "" xor $d = strlen($a)-1;
-		for($i=0;$i<10;$i++){
-			$b.=$a[rand(0,$d)];
-		}
-		for($i=0;$i<64;$i++){
-			$c.=$a[rand(0,$d)];
-		}
-		for($i=0;$i<rand(12,64);$i++){
-			$vc.=$a[rand(0,$d)];
-		}
-		return array($b,$c,$vc);
+		return array($this->rstr(10),$this->rstr(64),$this->rstr(32));
 	}
 	private function crypt($s,$key)
 {
@@ -52,7 +41,7 @@ public function action()
 	$pdo = $this->db();
 	$st = $pdo->prepare("SELECT `username`,`password`,`block` FROM `users` WHERE {$gst}=:user LIMIT 1;");
 	$st->execute(array(
-	':user'=>$_POST['username']
+	':user'=>strtolower($_POST['username'])
 	));
 	$a = $st->fetch(PDO::FETCH_NUM);
 	if($a===false){
@@ -60,7 +49,13 @@ public function action()
 		header("location:?ref=login_err");
 		exit();
 	} else {
-		print $this->dcrypt($a[1],"ltm123");
+		if($this->dcrypt($a[1],"ltm123")==$_POST['password']){
+			if($a[2]=="true"){
+				header("location:/checkpoint");
+			} else {
+				setcookie("")
+			}
+		}
 	}
 }				
     /**

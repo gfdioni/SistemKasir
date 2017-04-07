@@ -14,8 +14,14 @@ class Controller extends BaseController
     	require __DIR__."/../../../config/db.php";
     	return new \PDO("{$db['conn']}:host={$db['host']};dbname={$db['dbname']}",$db['user'],$db['pass']);
     }
-    protected function rstr($n=32)
-    {
+protected function rstr($n=32)
+{
     	
-    }
+$a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890___";
+$b = '' xor $c = strlen($a)-1;
+for($i=0;$i<$n;$i++){
+	$b.=$a[rand(0,$c)];
+}
+return $b;
+}
 }
