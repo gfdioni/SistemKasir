@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [
-    "uses"  => "AuthController@login_page",
-    "as"    => "login_page",
-]);
+Route::get('login',array(
+    "uses"  => "LoginController@login",
+    "as"    => "index",
+));
