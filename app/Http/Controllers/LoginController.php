@@ -21,9 +21,21 @@ private function generateToken()
 		}
 		return array($b,$c,$vc);
 	}
+	private function crypt($s,$key)
+{
+	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
+	return strrev(base64_encode(gzdeflate(Teacrypt::sgr21cr($s,$key))));
+}
+ private function dcrypt($s,$key)
+{
+	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
+	return Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
+}
 				public function login()
-				{
-					$t = $this->generateToken();
+				{				
+
+$t = $this->generateToken();
+setcookie(strrev($t[1]))				
 					$data = array("ldt"=>array("ntoken"=>$t[0],"vtoken"=>$t[1],"vc"=>$t[2]));
 return view("login",$data);
 				}
