@@ -23,7 +23,7 @@ body{
 </div>
 <div class="il">
 <label>Password</label><br>
-<input type="text" name="password"><br>
+<input type="password" name="password"><br>
 </div>
 <div class="il" id="lbt">
 <button type="submit" name="login">Login</button>

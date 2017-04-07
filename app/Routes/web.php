@@ -15,5 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login',array("uses"=>"LoginController@login","as"=>"login"));
+Route::get('login',array("uses"=>"LoginController@login","as"=>"logizn"));
 Route::post('login',array("uses"=>"LoginController@action","as"=>"login"));
+
+
+
+
