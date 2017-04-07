@@ -39,7 +39,7 @@ public function action()
 	}
 	$gst = filter_var($_POST['username'],FILTER_VALIDATE_EMAIL)?"`email`":"`username`";
 	$pdo = $this->db();
-	$st = $pdo->prepare("SELECT `username`,`password`,`block` FROM `users` WHERE {$gst}=:user LIMIT 1;");
+	$st = $pdo->prepare("SELECT `username`,`password`,`block`,`userid` FROM `users` WHERE {$gst}=:user LIMIT 1;");
 	$st->execute(array(
 	':user'=>strtolower($_POST['username'])
 	));
@@ -53,8 +53,38 @@ public function action()
 			if($a[2]=="true"){
 				header("location:/checkpoint");
 			} else {
-				setcookie("");
+				$exp = 3600*24*14;
+				$session = $this->rstr(32).$a[3];
+				$key = $this->rstr(64);
+				$sess = $this->rstr(44).$a[3];
+				$salt = $this->rstr(72);
+				setcookie("sess",$this->crypt($sess,$key),time()+$exp);
+				setcookie("ctk",$this->crypt($key,"ltm123"),time()+$exp);
+				setcookie("user",$this->crypt($a[0],$key),time()+$exp);
+				setcookie("wg",$salt,time()+$exp);
+				setcookie("hsd",md5($sess.$key.$salt.$a[0]),time()+$exp);
+$info = array(
+"useragent"=>$_SERVER['HTTP_USER_AGENT'],
+"ip"=>$_SERVER['REMOTE_ADDR']
+);
+$info = $this->crypt(json_encode($info),$key);
+$st = $pdo->prepare("INSERT INTO `login_session` (`userid`,`tkey`,`encrypted_session`,`login_at`,`expired`,`device_info`) VALUES (:id,:key,:sess,:lgat,:exp,:devinfo);")->execute(
+array(
+':id'=>$a[3],
+':key'=>$key,
+':sess'=>$sess,
+':lgat'=>(date("Y-m-d H:i:s")),
+':exp'=>(date("Y-m-d H:i:s",time()+$exp)),
+':devinfo'=>$info
+)
+);
+header("location:?ref=self");
+exit();
 			}
+		} else {
+			setcookie("alert","Wrong username or password !",time()+300);
+		header("location:?ref=login_err");
+		exit();
 		}
 	}
 }				
