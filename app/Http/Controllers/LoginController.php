@@ -53,7 +53,7 @@ public function action()
 			if($a[2]=="true"){
 				header("location:/checkpoint");
 			} else {
-				setcookie("")
+				setcookie("");
 			}
 		}
 	}
