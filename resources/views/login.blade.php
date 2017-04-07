@@ -28,6 +28,7 @@ body{
 <div class="il" id="lbt">
 <button type="submit" name="login">Login</button>
 </div>
+<input type="hidden" name="_token" value="{{{ csrf_token() }}}">
 <input type="hidden" name="<?php print $ldt['ntoken'];?>" value="<?php print $ldt['vtoken'];?>">
 <input type="hidden" name="vc" value="<?php print $ldt['vc'];?>">
 </form>

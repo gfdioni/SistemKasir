@@ -10,4 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected function db()
+    {
+    	require __DIR__."/../../../config/db.php";
+    	return new \PDO("{$db['conn']}:host={$db['host']};dbname={$db['dbname']}",$db['user'],$db['pass']);
+    }
 }

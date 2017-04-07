@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
-{private function generateToken()
+{
+private function generateToken()
 	{
 		$a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890___";
 		$b = $c = $vc = "" xor $d = strlen($a)-1;
@@ -26,9 +27,9 @@ class LoginController extends Controller
 					$data = array("ldt"=>array("ntoken"=>$t[0],"vtoken"=>$t[1],"vc"=>$t[2]));
 return view("login",$data);
 				}
-public function action
+public function action()
 {
-	
+	var_dump($this->db());
 }				
     /**
      * Display a listing of the resource.
