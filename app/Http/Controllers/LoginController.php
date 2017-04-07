@@ -24,12 +24,12 @@ private function generateToken()
 	private function crypt($s,$key)
 {
 	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
-	return strrev(base64_encode(gzdeflate(Teacrypt::sgr21cr($s,$key))));
+	return strrev(base64_encode(gzdeflate(WhiteHat\Teacrypt::sgr21cr($s,$key))));
 }
  private function dcrypt($s,$key)
 {
 	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
-	return Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
+	return WhiteHat\Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
 }
 				public function login()
 				{				
