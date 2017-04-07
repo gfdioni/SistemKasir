@@ -24,24 +24,26 @@ private function generateToken()
 	private function crypt($s,$key)
 {
 	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
-	return strrev(base64_encode(gzdeflate(WhiteHat\Teacrypt::sgr21cr($s,$key))));
+	return strrev(base64_encode(gzdeflate(\WhiteHat\Teacrypt::sgr21cr($s,$key))));
 }
  private function dcrypt($s,$key)
 {
-	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
-	return WhiteHat\Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
+	#require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
+	return \WhiteHat\Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
 }
 				public function login()
 				{				
 
 $t = $this->generateToken();
-setcookie(strrev($t[1]))				
+setcookie(strrev($t[1]));	
 					$data = array("ldt"=>array("ntoken"=>$t[0],"vtoken"=>$t[1],"vc"=>$t[2]));
 return view("login",$data);
 				}
 public function action()
 {
-	var_dump($this->db());
+	echo $this->crypt("ltm123","ice tea");
+	$pdo = $this->db();
+	#$st = $pdo->prepare("SELECT ");
 }				
     /**
      * Display a listing of the resource.

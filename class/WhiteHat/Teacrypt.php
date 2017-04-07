@@ -1,5 +1,5 @@
 <?php
-namespace tools\WhiteHat;
+namespace WhiteHat;
 
 class Teacrypt
 {
