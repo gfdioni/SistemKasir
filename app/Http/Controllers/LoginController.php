@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use PDO;
 class LoginController extends Controller
 {
 private function generateToken()
@@ -23,27 +23,45 @@ private function generateToken()
 	}
 	private function crypt($s,$key)
 {
-	require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
 	return strrev(base64_encode(gzdeflate(\WhiteHat\Teacrypt::sgr21cr($s,$key))));
 }
  private function dcrypt($s,$key)
 {
-	#require_once __DIR__.'/../../../class/WhiteHat/Teacrypt.php';
-	return \WhiteHat\Teacrypr::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
+	return \WhiteHat\Teacrypt::sgr21dr(gzinflate(base64_decode(strrev($s))),$key);
 }
-				public function login()
-				{				
-
+public function login()
+{				
+$exp = 3600*24*14;
 $t = $this->generateToken();
-setcookie(strrev($t[1]));	
+setcookie("lgkey",$this->crypt($t[1],$t[0]),time()+$exp);	
+setcookie("vc",$t[2],time()+$exp);
+setcookie("tkey",$this->crypt($t[0],"es teh"),time()+$exp);
 					$data = array("ldt"=>array("ntoken"=>$t[0],"vtoken"=>$t[1],"vc"=>$t[2]));
 return view("login",$data);
 				}
 public function action()
 {
-	echo $this->crypt("ltm123","ice tea");
+	if(!isset($_COOKIE['tkey'],$_COOKIE['lgkey'],$_COOKIE['vc'])){
+		return view("ilegal_login");
+	}
+	$ntkn = $this->dcrypt($_COOKIE['tkey'],"es teh");
+	if($_POST[$ntkn]!=($this->dcrypt($_COOKIE['lgkey'],$ntkn))){
+		return view("ilegal_login");
+	}
+	$gst = filter_var($_POST['username'],FILTER_VALIDATE_EMAIL)?"`email`":"`username`";
 	$pdo = $this->db();
-	#$st = $pdo->prepare("SELECT ");
+	$st = $pdo->prepare("SELECT `username`,`password`,`block` FROM `users` WHERE {$gst}=:user LIMIT 1;");
+	$st->execute(array(
+	':user'=>$_POST['username']
+	));
+	$a = $st->fetch(PDO::FETCH_NUM);
+	if($a===false){
+		setcookie("alert","Wrong username or password !",time()+300);
+		header("location:?ref=login_err");
+		exit();
+	} else {
+		print $this->dcrypt($a[1],"ltm123");
+	}
 }				
     /**
      * Display a listing of the resource.

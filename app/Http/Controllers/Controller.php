@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -14,5 +13,9 @@ class Controller extends BaseController
     {
     	require __DIR__."/../../../config/db.php";
     	return new \PDO("{$db['conn']}:host={$db['host']};dbname={$db['dbname']}",$db['user'],$db['pass']);
+    }
+    protected function rstr($n=32)
+    {
+    	
     }
 }
