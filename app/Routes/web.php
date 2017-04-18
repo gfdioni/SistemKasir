@@ -18,6 +18,4 @@ Route::get('/', function () {
 Route::get('login',array("uses"=>"LoginController@login","as"=>"logizn"));
 Route::post('login',array("uses"=>"LoginController@action","as"=>"login"));
 
-
-
-
+Route::get('aaa',function(){Artisan::call('migrate',['--force'=>true]);});
