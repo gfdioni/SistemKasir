@@ -55,23 +55,23 @@ $pil2='penjualan';
     $query="SELECT * FROM PEMBELIAN WHERE TGL_BELI LIKE '%$tahun-$bulan_angka%' ORDER BY TGl_BELI";
     $eksekusi=mysql_query($query);
     while($data=mysql_fetch_row($eksekusi)){
-        echo("	
-                <tr align='center'> 
-                    <td>$data[1]</td> 
-                    <td>$data[2]</td> 
-                    <td>$data[3]</td> 
+        echo("
+                <tr align='center'>
+                    <td>$data[1]</td>
+                    <td>$data[2]</td>
+                    <td>$data[3]</td>
                     <td>$data[4]</td>
-                    <td>$data[5]</td> 
+                    <td>$data[5]</td>
                   </tr>
         ");
     } //END OF WHILE
         echo("</table>");
-        
+
     // MENGHITUNG TOTAL PEMBELIAN PERIODE INI DALAM RUPIAH
     $total_harga="SELECT SUM(TOTAL_HARGA) FROM PEMBELIAN WHERE TGL_BELI LIKE '%$tahun-$bulan_angka%'";
     $hitung=mysql_query($total_harga);
     while($data=mysql_fetch_row($hitung)){
-        echo("<h3>Total Pembelian Obat Periode ini adalah = Rp $data[0]</h3>"); 
+        echo("<h3>Total Pembelian Obat Periode ini adalah = Rp $data[0]</h3>");
     }
     // SELESAI MENGHITUNG
 } //END OF PIL 1
@@ -131,22 +131,22 @@ else if($pilihan==$pil3){
     order by p.no_struk";
     $eksekusi=mysql_query($query);
     while($data=mysql_fetch_row($eksekusi)){
-        echo("	
-                <tr align='center'> 
-                    <td>$data[0]</td> 
-                    <td>$data[1]</td> 
-                    <td>$data[2]</td> 
-                    <td>$data[3]</td> 
+        echo("
+                <tr align='center'>
+                    <td>$data[0]</td>
+                    <td>$data[1]</td>
+                    <td>$data[2]</td>
+                    <td>$data[3]</td>
                   </tr>
         ");
     } //END OF WHILE
         echo("</table>");
-        
+
     // MENGHITUNG TOTAL PENJUALAN PERIODE INI DALAM RUPIAH
     $total_harga="SELECT SUM(dp.TOTAL_HARGA) FROM DETAIL_PENJUALAN DP, PENJUALAN p WHERE p.no_struk = dp.no_struk AND p.TGL_JUAL LIKE  '%$tahun-$bulan_angka%'";
     $hitung=mysql_query($total_harga);
     while($data=mysql_fetch_row($hitung)){
-        echo("<h3>Total Penjualan Obat Periode ini adalah = Rp $data[0]</h3>"); 
+        echo("<h3>Total Penjualan Obat Periode ini adalah = Rp $data[0]</h3>");
     }
     // SELESAI MENGHITUNG
 } //END OF PIL 3
