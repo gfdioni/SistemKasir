@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login',array("uses"=>"LoginController@login","as"=>"logizn"));
-Route::post('login',array("uses"=>"LoginController@action","as"=>"login"));
+Route::get('login', array("uses"=>"LoginController@login","as"=>"logizn"));
+Route::post('login', array("uses"=>"LoginController@action","as"=>"login"));
 
-Route::get('aaa',function(){Artisan::call('migrate',['--force'=>true]);});
+Route::get('aaa', function () {
+    Artisan::call('migrate', ['--force'=>true]);
+});

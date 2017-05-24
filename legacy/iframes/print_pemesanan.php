@@ -71,17 +71,17 @@ $nm_pbf = $row[0];?>
 		<td width="60">Jumlah</td>
 	</tr>
 	<?php
-		$totitem = "select sum(jumlah) as jum from detail_pemesanan dp where id_pesan='$id_pesan' group by id_pesan";
-		$ekstotitem = mysql_query($totitem);
-		$hasil = mysql_fetch_array($ekstotitem);
-		$total_item = $hasil[0];
-	
-		$detail_pesan = "select o.nama_obat,o.satuan,dp.jumlah from obat o,detail_pemesanan dp where o.kode_obat=dp.kode_obat AND dp.id_pesan='$id_pesan'";
-		$eks3 = mysql_query($detail_pesan);
-		$item = mysql_num_rows($eks3);
-		$no=1;
-		while($row=mysql_fetch_array($eks3)){
-			?>
+        $totitem = "select sum(jumlah) as jum from detail_pemesanan dp where id_pesan='$id_pesan' group by id_pesan";
+        $ekstotitem = mysql_query($totitem);
+        $hasil = mysql_fetch_array($ekstotitem);
+        $total_item = $hasil[0];
+    
+        $detail_pesan = "select o.nama_obat,o.satuan,dp.jumlah from obat o,detail_pemesanan dp where o.kode_obat=dp.kode_obat AND dp.id_pesan='$id_pesan'";
+        $eks3 = mysql_query($detail_pesan);
+        $item = mysql_num_rows($eks3);
+        $no=1;
+        while ($row=mysql_fetch_array($eks3)) {
+            ?>
 			<tr>
 				<td align="center"><?php echo $no; ?></td>
 				<td align="center"><?php echo $row['nama_obat']; ?></td>
@@ -89,13 +89,13 @@ $nm_pbf = $row[0];?>
 				<td align="center"><?php echo $row['jumlah']; ?></td>
 			</tr>
 			<?php	
-			$no++;	
-		} // tutup WHILE
-		?>
+            $no++;
+        } // tutup WHILE
+        ?>
 		
 </table><br />
 <?php echo("Total Jenis Item = $item"); ?>
-<?php //echo("<br/>Total Jumlah Obat = $total_item"); ?>
+<?php //echo("<br/>Total Jumlah Obat = $total_item");?>
 
 <br /><br /><br />
 

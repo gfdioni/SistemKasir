@@ -32,25 +32,27 @@ $username=@$_SESSION['username'];
 	<input type="submit" name="mulai" value="Mulai Sesi Mutasi" /> <input type="submit" name="akhir" value="Akhiri Sesi Mutasi" /><br /><br />
 </form>
 <?php
-if(isset($_POST['mulai'])){
-	$query_mulai = "insert into mutasi value ('',now(),'$username')";
-	mysql_query($query_mulai);?>
+if (isset($_POST['mulai'])) {
+    $query_mulai = "insert into mutasi value ('',now(),'$username')";
+    mysql_query($query_mulai); ?>
 	<script language="javascript">
 			alert('Sesi Mutasi Dimulai');
 			document.location='index.php?page=mutasi';
 	</script>
 	<?php
+
 }
-if(isset($_POST['akhir'])){
-	$query_akhir1 = "delete from detail_mutasi";
-	mysql_query($query_akhir1);
-	$query_akhir2 = "delete from mutasi";
-	mysql_query($query_akhir2);?>
+if (isset($_POST['akhir'])) {
+    $query_akhir1 = "delete from detail_mutasi";
+    mysql_query($query_akhir1);
+    $query_akhir2 = "delete from mutasi";
+    mysql_query($query_akhir2); ?>
 	<script language="javascript">
 			alert('Sesi Mutasi Berakhir');
 			document.location='index.php?page=mutasi';
 	</script>
 	<?php
+
 }
 ?>
 
@@ -60,7 +62,8 @@ Masukkan Nama atau Scan Barcode Obat : <input type="text" name="cari"  autofocus
 </form>
 
 <?php 
-if(isset($_POST['cari'])){?>
+if (isset($_POST['cari'])) {
+    ?>
 <table border="1">
 	<tr bgcolor="#6666FF" align="center">
 		<td width="50">No</td>
@@ -75,21 +78,20 @@ if(isset($_POST['cari'])){?>
 		<td width="50">Mutasikan</td>
 	</tr>
 	<?php
-	$cari=$_POST['cari'];
-	$counter = 1;
-	$sql 	= "select o.kode_obat, o.nama_obat, o.satuan, sum(b.stok), o.harga, o.harga_langganan from obat o, batch b
+    $cari=$_POST['cari'];
+    $counter = 1;
+    $sql    = "select o.kode_obat, o.nama_obat, o.satuan, sum(b.stok), o.harga, o.harga_langganan from obat o, batch b
 			where o.kode_obat = b.kode_obat
 			and (o.nama_obat like '%$cari%' or o.kode_obat like '%$cari%')
 			group by o.kode_obat
 			order by o.nama_obat asc";
-	$eks 	= mysql_query($sql);
-	while($hasil=mysql_fetch_array($eks)){
-		$kode_obat=$hasil['kode_obat'];
-		$queryetalase = "select (sum(stok)) from etalase where kode_obat = '$kode_obat'";
-		$eksqueryetalase = mysql_query($queryetalase);
-		$ambilqueryetalase = mysql_fetch_row($eksqueryetalase);
-		$hasilqueryetalase = $ambilqueryetalase[0];
-	?>
+    $eks    = mysql_query($sql);
+    while ($hasil=mysql_fetch_array($eks)) {
+        $kode_obat=$hasil['kode_obat'];
+        $queryetalase = "select (sum(stok)) from etalase where kode_obat = '$kode_obat'";
+        $eksqueryetalase = mysql_query($queryetalase);
+        $ambilqueryetalase = mysql_fetch_row($eksqueryetalase);
+        $hasilqueryetalase = $ambilqueryetalase[0]; ?>
 	<tr>
 		<td width="50" align="center"><?php echo $counter; ?></td>
 		<td width="130"><?php echo $hasil[0]; ?></td>
@@ -100,15 +102,15 @@ if(isset($_POST['cari'])){?>
 		<td width="100" align="center"><?php echo $hasil[3]; ?></td>
 		<td width="100" align="center"><?php echo $hasilqueryetalase; ?></td>
 		<td width="100" align="center"><?php echo $hasilqueryetalase+$hasil[3]; ?></td>
-		<td width="50" align="center"><a href="?page=mutasi_form&nama_obat=<?php echo $hasil[1];?>&kode_obat=<?php echo $hasil[0];?>&satuan=<?php echo $hasil[2];?>&stok=<?php echo $hasil[3];?>">mutasi</a></td>
+		<td width="50" align="center"><a href="?page=mutasi_form&nama_obat=<?php echo $hasil[1]; ?>&kode_obat=<?php echo $hasil[0]; ?>&satuan=<?php echo $hasil[2]; ?>&stok=<?php echo $hasil[3]; ?>">mutasi</a></td>
 	</tr>
 	<?php
-	$counter++;
-	}
-	?>
+    $counter++;
+    } ?>
 </table>
 
 <?php
+
 } //tutup if(isset($_POST['cari'])){
 ?>
 <br />
@@ -122,21 +124,22 @@ if(isset($_POST['cari'])){?>
 		<td width="120">Jumlah Mutasi</td>
 	</tr>
 	<?php
-	$count 			= 1;
-	$lihat_mutasi 	= "select * from detail_mutasi dm, obat o where dm.kode_obat = o.kode_obat";
-	$eks_lihat 		= mysql_query($lihat_mutasi);
-	while($hasil_lihat=mysql_fetch_array($eks_lihat)){?>
+    $count            = 1;
+    $lihat_mutasi    = "select * from detail_mutasi dm, obat o where dm.kode_obat = o.kode_obat";
+    $eks_lihat        = mysql_query($lihat_mutasi);
+    while ($hasil_lihat=mysql_fetch_array($eks_lihat)) {
+        ?>
 		<tr align="center">
-			<td><?php echo $count;?></td>
+			<td><?php echo $count; ?></td>
 			<td><?php echo $hasil_lihat[1]; ?></td>
 			<td><?php echo $hasil_lihat[4]; ?></td>
 			<td><?php echo $hasil_lihat[5]; ?></td>
 			<td><?php echo $hasil_lihat[2]; ?></td>
 		</tr>
-	<?
-	$count++;
-	} // TUTUP while($hasil_lihat=mysql_fetch_array($eks_lihat)){
-	?>
+	<?php
+    $count++;
+    } // TUTUP while($hasil_lihat=mysql_fetch_array($eks_lihat)){
+    ?>
 </table><br />
 
 <!-------------------------------------------------------- SCRIPT UNTUK PRINT -------------------------------------------------------------------->

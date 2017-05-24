@@ -1,9 +1,9 @@
 <?php
 include("../koneksi.php");
 
-$cari	 	= $_GET['cari'];
-$awal		= $_GET['awal'];
-$akhir		= $_GET['akhir'];
+$cari        = $_GET['cari'];
+$awal        = $_GET['awal'];
+$akhir        = $_GET['akhir'];
 
 $queryobat = "select nama_obat from obat where kode_obat = '$cari'";
 $eks_queryobat = mysql_query($queryobat);
@@ -27,7 +27,7 @@ order by p.tgl_jual asc";
 $ambil = mysql_query($jml);
 $hasil = mysql_fetch_array($ambil);
 $total = $hasil[4];
-echo ("Total item keluar selama periode <b>$awal</b> sampai <b>$akhir</b> adalah = <b> $total </b> satuan");
+echo("Total item keluar selama periode <b>$awal</b> sampai <b>$akhir</b> adalah = <b> $total </b> satuan");
 
 
 // =============== tampilkan data rinci obat yang keluar ===========================
@@ -58,8 +58,8 @@ order by p.tgl_jual asc";
 $tampil_data=mysql_query($query);
 $counter=1;
 $item=mysql_num_rows($tampil_data);
-while($data=mysql_fetch_array($tampil_data)){
-	echo("<tr align='center'> 
+while ($data=mysql_fetch_array($tampil_data)) {
+    echo("<tr align='center'> 
 			<td>$counter</td>
 			<td>$data[1]</td> 
 			<td>$data[2]</td> 
@@ -70,10 +70,10 @@ while($data=mysql_fetch_array($tampil_data)){
 			<td>$data[7]</td>
 		</tr>
 		");
-		$counter++;
+    $counter++;
 }
-if($item==0){
-	echo ("Data Obat ini tidak tersedia");
+if ($item==0) {
+    echo("Data Obat ini tidak tersedia");
 }
 ?>
 </table>

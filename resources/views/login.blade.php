@@ -1,17 +1,19 @@
 <?php
-if(isset($_COOKIE['alert'])){
-$al = $_COOKIE['alert'];
-	setcookie("alert",null,time()-300);
+if (isset($_COOKIE['alert'])) {
+    $al = $_COOKIE['alert'];
+    setcookie("alert", null, time()-300);
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<?php if(isset($al)){?>
+<?php if (isset($al)) {
+    ?>
 <script>
-alert("<?php print $al;?>");
+alert("<?php print $al; ?>");
 </script>
-<?php } ?>
+<?php 
+} ?>
 <title>Login</title>
 <meta name="viewport" content="width=device-with,initial-scale=1">
 <style>

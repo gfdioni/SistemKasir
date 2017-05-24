@@ -14,8 +14,8 @@ Masukkan Nama Obat : <input type="text" name="cari" autocomplete="off" autofocus
 <b><a href="?page=stok_minimum">Lihat Obat Yang Sudah Harus Dipesan..</a></b><br />
 
 <?php
-if(isset($_POST['cari'])){
-$cari=$_POST['cari']; ?>
+if (isset($_POST['cari'])) {
+    $cari=$_POST['cari']; ?>
 <table border='1'>
 	<tr align='center' bgcolor='cyan'>
 		<td width='50'>No</td>
@@ -31,37 +31,43 @@ $cari=$_POST['cari']; ?>
 //$query="SELECT O.KODE_OBAT,NAMA_OBAT,SATUAN,HARGA,SUM(STOK) FROM OBAT O, BATCH B WHERE O.KODE_OBAT=B.KODE_OBAT AND B.EXPIRED-CURDATE() >= 100 GROUP BY KODE_OBAT ORDER BY NAMA_OBAT";
 
 $query="SELECT O.KODE_OBAT, NAMA_OBAT, SATUAN, HARGA, HARGA_LANGGANAN, SUM(STOK) FROM OBAT O, BATCH B WHERE O.KODE_OBAT=B.KODE_OBAT and (O.NAMA_OBAT LIKE '%$cari%' or O.KODE_OBAT LIKE '%$cari%' ) GROUP BY KODE_OBAT ORDER BY NAMA_OBAT ASC";
-$tampil_data=mysql_query($query);
-$counter=1;
-while($data=mysql_fetch_row($tampil_data)){?>
+    $tampil_data=mysql_query($query);
+    $counter=1;
+    while ($data=mysql_fetch_row($tampil_data)) {
+        ?>
 	<tr align='center'> 
 		<td><?php echo $counter; ?></td>
 		<td><?php echo $data[0]; ?></td> 
 		<td align='left'><?php echo $data[1]; ?></td> 
 		<td><?php echo $data[2]; ?></td> 
-		<td align = 'right'><?php echo number_format($data[3],0,",",".");?></td> 
-		<td align = 'right'><?php echo number_format($data[4],0,",",".");?></td><?php
-		//ambil stok minimum
-		$query_stok_min	= "select stok_min from obat where kode_obat='$data[0]'";
-		$eks_stok_min 	= mysql_query($query_stok_min);
-		$ambil_stok_min	= mysql_fetch_array($eks_stok_min);
-		$hasil_stok_min	= $ambil_stok_min[0];?>
-		<td><?php echo $hasil_stok_min;?></td>
+		<td align = 'right'><?php echo number_format($data[3], 0, ",", "."); ?></td> 
+		<td align = 'right'><?php echo number_format($data[4], 0, ",", "."); ?></td><?php
+        //ambil stok minimum
+        $query_stok_min    = "select stok_min from obat where kode_obat='$data[0]'";
+        $eks_stok_min    = mysql_query($query_stok_min);
+        $ambil_stok_min    = mysql_fetch_array($eks_stok_min);
+        $hasil_stok_min    = $ambil_stok_min[0]; ?>
+		<td><?php echo $hasil_stok_min; ?></td>
 			<?php 
-			$sekarang=$data[5];
-			if($sekarang < $hasil_stok_min){?>
+            $sekarang=$data[5];
+        if ($sekarang < $hasil_stok_min) {
+            ?>
 				<td width="100" align="center" bgcolor="red"><?php echo $data[5]; ?></td><?php
-			}
-			else{?>
+
+        } else {
+            ?>
 				<td width="100" align="center"><?php echo $data[5]; ?></td><?php
-			}
-		$counter++;?>
+
+        }
+        $counter++; ?>
 	</tr>
 <?php
-}//tutup while($data=mysql_fetch_row($tampil_data)){ ?>
+
+    }//tutup while($data=mysql_fetch_row($tampil_data)){?>
 </table>
 
-<?
+<?php
+
 } //tutup if(isset($_POST['cari']))
 ?>
 <br /><hr />

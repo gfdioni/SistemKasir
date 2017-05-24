@@ -27,8 +27,8 @@ $usernamee=@$_SESSION['username'];
   		<div id="header">
 			<div id="menu">
 				<?php
-					if($jabatan=="pemilik"){
-					?>
+                    if ($jabatan=="pemilik") {
+                        ?>
 						<ul>
 							<li><a href="?page=awal">Home</a></li>
 							<li><a href="?page=obat_view">Obat</a></li>
@@ -46,8 +46,9 @@ $usernamee=@$_SESSION['username'];
 						</ul>
 					
 					<?php
-					}else if($jabatan=="supervisor"){
-					?>
+
+                    } elseif ($jabatan=="supervisor") {
+                        ?>
 						<ul>
 							<li><a href="?page=awal">Home</a></li>
 							<li><a href="?page=pbf_view">PBF</a></li>
@@ -63,9 +64,10 @@ $usernamee=@$_SESSION['username'];
 							<li><a href="?page=cek_produk">Cek Produk</a></li>
 						</ul>
 					
-					<?
-					}else if($jabatan=="kasir"){
-					?>
+					<?php
+
+                    } elseif ($jabatan=="kasir") {
+                        ?>
 						<ul>
 							<li><a href="?page=awal">Home</a></li>
 							<li><a href="?page=penjualan_insert">P Umum</a></li>
@@ -77,16 +79,18 @@ $usernamee=@$_SESSION['username'];
 						</ul>
 					
 					<?php
-					}else{
-					?>
+
+                    } else {
+                        ?>
 						<ul>
 							<li><a href="?page=awal">Home</a></li>
 							<li><a href="?page=login">Login</a></li>		
 						</ul>
 
 					<?php
-					}
-				?>
+
+                    }
+                ?>
 			</div>
 			<div id="logo">
 				<h1><a href="#">Apotek TRIDAYA BUANA SEJAHTERA (TBS)</a></h1>
@@ -120,8 +124,8 @@ $usernamee=@$_SESSION['username'];
 		<div id="content">
 			<div id="left">
 				<?php
-					include "menu.php";
-				?>
+                    include "menu.php";
+                ?>
 			</div>
 			
 			<div class="clear"></div>
@@ -135,7 +139,8 @@ $usernamee=@$_SESSION['username'];
 					<div class="right_bg">
 						<h5>Informasi</h5>
 						<?php 
-						if($usernamee!=""){?>
+                        if ($usernamee!="") {
+                            ?>
 							<table border="0">
 								<tr>
 									<td>Username</td>
@@ -150,14 +155,14 @@ $usernamee=@$_SESSION['username'];
 							</table>
 							<br />Jangan lupa <a href="?page=logout">logout</a> setelah menggunakan aplikasi
 							<?php 
-							echo("<br /><a href=\"?page=karyawan_update&username=$usernamee\">Ganti Password Saya</a><br>");
-							
-							if($jabatan == "pemilik"){
-								echo("<br /><strong><a href=\"?page=karyawan_view\">Kelola Akun User</a></strong><br>");
-								echo("<strong><a href=\"?page=expired\">lihat Obat Kadaluwarsa</a></strong><br>");
-							}
-						} // tutup if di line if($usernamee!=""){
-						?>
+                            echo("<br /><a href=\"?page=karyawan_update&username=$usernamee\">Ganti Password Saya</a><br>");
+                            
+                            if ($jabatan == "pemilik") {
+                                echo("<br /><strong><a href=\"?page=karyawan_view\">Kelola Akun User</a></strong><br>");
+                                echo("<strong><a href=\"?page=expired\">lihat Obat Kadaluwarsa</a></strong><br>");
+                            }
+                        } // tutup if di line if($usernamee!=""){
+                        ?>
 						<br /><br />
 						
 						<div align="center"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="184" height="51" title="jam">

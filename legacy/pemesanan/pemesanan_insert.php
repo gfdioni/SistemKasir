@@ -51,12 +51,12 @@ include("koneksi.php");
 //	$rcek=mysql_fetch_array($querycek);
 //	$stok_min=$rcek['stok_min'];
 //	if($stok<$stok_min){
-//		echo("<tr align='center'> 
-//			<td>".$rcek['kode_obat']."</td> 
-//			<td>$rcek[nama_obat]</td> 
-//			<td>$rcek[satuan]</td> 
-//			<td>$rcek[stok_min]</td> 
-//			<td>$row[stok]</td> 
+//		echo("<tr align='center'>
+//			<td>".$rcek['kode_obat']."</td>
+//			<td>$rcek[nama_obat]</td>
+//			<td>$rcek[satuan]</td>
+//			<td>$rcek[stok_min]</td>
+//			<td>$row[stok]</td>
 //		");
 //	}
 //}
@@ -76,17 +76,17 @@ $kode_pbf = @$_POST['kode_pbf'];
 		<td>
 		<select name="kode_pbf">
 		<?php
-		$sql = "select * from pbf";		//ambil data dari tabel PBF
-		$query=mysql_query($sql);
-		while($row=mysql_fetch_array($query)){
-			if($row['kode_pbf']==$kode_pbf){
-				$select = "selected = 'selected'";
-			}else{
-				$select = "";
-			}
-			echo "<option value='$row[kode_pbf]' $select>$row[nama_pbf]</option>";
-		}
-		?>
+        $sql = "select * from pbf";        //ambil data dari tabel PBF
+        $query=mysql_query($sql);
+        while ($row=mysql_fetch_array($query)) {
+            if ($row['kode_pbf']==$kode_pbf) {
+                $select = "selected = 'selected'";
+            } else {
+                $select = "";
+            }
+            echo "<option value='$row[kode_pbf]' $select>$row[nama_pbf]</option>";
+        }
+        ?>
 		</select>
 		</td>
 	</tr>
@@ -103,7 +103,8 @@ $kode_pbf = @$_POST['kode_pbf'];
 </table>
 
 <?php
-if(isset($_POST['input'])){?>
+if (isset($_POST['input'])) {
+            ?>
 	<br />
 	<table border="1">
 	<tr  bgcolor="#00FFFF">
@@ -112,70 +113,69 @@ if(isset($_POST['input'])){?>
 		<td align="center">Jumlah</td>
 	</tr>
 		<?php
-		for($i=1;$i<=$jumlah;$i++){
-			$nama_obat[$i]=@$_POST['nama_obat'.$i];
-			$jumlah_obat[$i]=@$_POST['jumlah_obat'.$i];		
-		}
-		
-		for($i=1;$i<=$jumlah;$i++){
-		?>
+        for ($i=1;$i<=$jumlah;$i++) {
+            $nama_obat[$i]=@$_POST['nama_obat'.$i];
+            $jumlah_obat[$i]=@$_POST['jumlah_obat'.$i];
+        }
+        
+            for ($i=1;$i<=$jumlah;$i++) {
+                ?>
 			<tr>
-				<td align="center"><?php echo $i;?></td>
+				<td align="center"><?php echo $i; ?></td>
 				<td>
-				<select name="nama_obat<?php echo $i;?>">
+				<select name="nama_obat<?php echo $i; ?>">
 					<?php
-					$sql = "select * from obat order by nama_obat";		//ambil data dati tabel obat
-					$query=mysql_query($sql);
-					while($row=mysql_fetch_array($query)){
-						if($row['kode_obat']==$nama_obat[$i]){
-							$select = "selected = 'selected'";
-						}else{
-							$select = "";
-						}
-						echo "<option value='$row[kode_obat]' $select>$row[nama_obat] - $row[satuan]</option>";
-					}
-					?>
+                    $sql = "select * from obat order by nama_obat";        //ambil data dati tabel obat
+                    $query=mysql_query($sql);
+                while ($row=mysql_fetch_array($query)) {
+                    if ($row['kode_obat']==$nama_obat[$i]) {
+                        $select = "selected = 'selected'";
+                    } else {
+                        $select = "";
+                    }
+                    echo "<option value='$row[kode_obat]' $select>$row[nama_obat] - $row[satuan]</option>";
+                } ?>
 				</select>
 				</td>
-				<td><input type="text" name="jumlah_obat<?php echo $i;?>" size="10" value="<?php echo $jumlah_obat[$i]; ?>" autocomplete="off"/></td>
+				<td><input type="text" name="jumlah_obat<?php echo $i; ?>" size="10" value="<?php echo $jumlah_obat[$i]; ?>" autocomplete="off"/></td>
 			</tr>	
-		<?
-		}
-		?>
+		<?php
+
+            } ?>
 	</table>
 	
 	<br /><font size="1">* ID Pesan dan Tanggal Pesan akan di-generate secara otomatis, silahkan klik button dibawah ini untuk mencetak Surat Pemesanan</font><br />
 	<br /><input type="submit" value="PESAN" name="insert_pemesanan" />
 	</form> <!--TUTUP FORM di LINE 43--> 
 <?php
-} //tutup if(isset($_POST['input']))
 
-if(isset($_POST['insert_pemesanan'])){
+        } //tutup if(isset($_POST['input']))
 
-		$jumlah = @$_POST['jumlah'];
-		$kode_pbf = @$_POST['kode_pbf'];
-		$username = @$_SESSION['username'];
-		$tgl_pesan = date('Y-m-d');
-		$insert = "insert into pemesanan(id_pesan,tgl_pesan,kode_pbf,username) values('','$tgl_pesan','$kode_pbf','$username')"; //insert tbl PEMESANAN
-		
-		$query = mysql_query($insert);
-		$ambil="select id_pesan from pemesanan order by id_pesan DESC";
-		$eks_ambil=mysql_query($ambil);
-		$hasil_ambil=mysql_fetch_row($eks_ambil);
-		
-		$id_pesan =$hasil_ambil[0];
-		//$query = mysql_query($insert);
-		//echo $id_pesan = mysql_insert_id();
-		
-			for($i=1;$i<=$jumlah;$i++){
-				$nama_obat=@$_POST['nama_obat'.$i];
-				$jumlah_obat=@$_POST['jumlah_obat'.$i];
-				$insert_detail = "insert into detail_pemesanan(id_pesan,kode_obat,jumlah) values('$id_pesan','$nama_obat','$jumlah_obat')";
-				$query_detail=mysql_query($insert_detail);
-			}
-			
-			if($query){
-				?>
+if (isset($_POST['insert_pemesanan'])) {
+    $jumlah = @$_POST['jumlah'];
+    $kode_pbf = @$_POST['kode_pbf'];
+    $username = @$_SESSION['username'];
+    $tgl_pesan = date('Y-m-d');
+    $insert = "insert into pemesanan(id_pesan,tgl_pesan,kode_pbf,username) values('','$tgl_pesan','$kode_pbf','$username')"; //insert tbl PEMESANAN
+        
+        $query = mysql_query($insert);
+    $ambil="select id_pesan from pemesanan order by id_pesan DESC";
+    $eks_ambil=mysql_query($ambil);
+    $hasil_ambil=mysql_fetch_row($eks_ambil);
+        
+    $id_pesan =$hasil_ambil[0];
+        //$query = mysql_query($insert);
+        //echo $id_pesan = mysql_insert_id();
+        
+            for ($i=1;$i<=$jumlah;$i++) {
+                $nama_obat=@$_POST['nama_obat'.$i];
+                $jumlah_obat=@$_POST['jumlah_obat'.$i];
+                $insert_detail = "insert into detail_pemesanan(id_pesan,kode_obat,jumlah) values('$id_pesan','$nama_obat','$jumlah_obat')";
+                $query_detail=mysql_query($insert_detail);
+            }
+            
+    if ($query) {
+        ?>
 				<script src="jquery-1.4.4.min.js" type="text/javascript"></script>
 				<script src="jquery.printPage.js" type="text/javascript"></script>
 				
@@ -186,12 +186,11 @@ if(isset($_POST['insert_pemesanan'])){
 				</script>
 
 				<?php
-					$nama_pbf = "select pbf.nama_pbf from pbf,pemesanan pes, detail_pemesanan dp where pbf.kode_pbf = pes.kode_pbf AND pes.id_pesan = dp.id_pesan AND pes.id_pesan='$id_pesan'";
-					$eks2 = mysql_query($nama_pbf);
-					while($row=mysql_fetch_array($eks2)){
-						$nm_pbf = $row[0];
-					}
-				?>
+                    $nama_pbf = "select pbf.nama_pbf from pbf,pemesanan pes, detail_pemesanan dp where pbf.kode_pbf = pes.kode_pbf AND pes.id_pesan = dp.id_pesan AND pes.id_pesan='$id_pesan'";
+        $eks2 = mysql_query($nama_pbf);
+        while ($row=mysql_fetch_array($eks2)) {
+            $nm_pbf = $row[0];
+        } ?>
 				<hr />
 				<center>
 				<table border="0">
@@ -250,25 +249,25 @@ if(isset($_POST['insert_pemesanan'])){
 						<td width="60">Jumlah</td>
 					</tr>
 					<?php
-						$totitem = "select sum(jumlah) as jum from detail_pemesanan dp where id_pesan='$id_pesan' group by id_pesan";
-						$ekstotitem = mysql_query($totitem);
-						$hasil = mysql_fetch_array($ekstotitem);
-						$total_item = $hasil[0];
-						
-						$detail_pesan = "select o.nama_obat,o.satuan,dp.jumlah from obat o,detail_pemesanan dp where o.kode_obat=dp.kode_obat AND dp.id_pesan='$id_pesan'";
-						$eks3 = mysql_query($detail_pesan);
-						$item = mysql_num_rows($eks3);
-						while($row=mysql_fetch_array($eks3)){
-							?>
+                        $totitem = "select sum(jumlah) as jum from detail_pemesanan dp where id_pesan='$id_pesan' group by id_pesan";
+        $ekstotitem = mysql_query($totitem);
+        $hasil = mysql_fetch_array($ekstotitem);
+        $total_item = $hasil[0];
+                        
+        $detail_pesan = "select o.nama_obat,o.satuan,dp.jumlah from obat o,detail_pemesanan dp where o.kode_obat=dp.kode_obat AND dp.id_pesan='$id_pesan'";
+        $eks3 = mysql_query($detail_pesan);
+        $item = mysql_num_rows($eks3);
+        while ($row=mysql_fetch_array($eks3)) {
+            ?>
 							<tr>
 								<td><?php echo $row['nama_obat']; ?></td>
 								<td align="center"><?php echo $row['satuan']; ?></td>
 								<td align="center"><?php echo $row['jumlah']; ?></td>
 							</tr>
 							<?php
-							
-						} // tutup WHILE
-						?>
+
+        } // tutup WHILE
+                        ?>
 				</table><br />
 				<?php echo("Total Jenis Item = $item"); ?>
 				<?php echo("<br/>Total Jumlah Obat = $total_item"); ?>
@@ -282,7 +281,7 @@ if(isset($_POST['insert_pemesanan'])){
 					alert('Pemesanan Telah dilakukan');
 				</script>
 				<?php
-			} //tutup if($query)
 
+    } //tutup if($query)
 } //tutup if(isset($_POST['insert_pemesanan'])){
 ?>

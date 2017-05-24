@@ -37,10 +37,10 @@ $cari=$_POST['cari'];
 $query="SELECT * FROM PBF WHERE nama_pbf LIKE '%$cari%' ORDER BY kode_pbf";
 $hasil_pencarian=mysql_query($query);
 $jumlah=mysql_num_rows($hasil_pencarian);
-if($jumlah>0){
-	echo("<br/>Data yang ditemukan dari keyword '$cari' : $jumlah<br><br>");
-	while($data=mysql_fetch_row($hasil_pencarian)){
-		echo("<tr align='center'> 
+if ($jumlah>0) {
+    echo("<br/>Data yang ditemukan dari keyword '$cari' : $jumlah<br><br>");
+    while ($data=mysql_fetch_row($hasil_pencarian)) {
+        echo("<tr align='center'> 
 			<td>$data[0]</td> 
 			<td>$data[1]</td> 
 			<td>$data[2]</td> 
@@ -48,10 +48,9 @@ if($jumlah>0){
 			<td><a href=\"?page=pbf_view&kode_pbf=$data[0]\" onClick='return confirmDeletee();'>hapus</a></td> 
 			<td><a href=\"?page=pbf_update&kode_pbf=$data[0]\">edit</a></td> </tr>
 		");
-	}
-}
-else{
-	echo("Data dengan keyword '$cari' tidak ditemukan <br><br>");
+    }
+} else {
+    echo("Data dengan keyword '$cari' tidak ditemukan <br><br>");
 }
 
 echo("</table>");

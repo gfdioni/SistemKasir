@@ -7,10 +7,10 @@ $a = array(
 "DB_PASSWORD=");
 $b = file_get_contents(__DIR__.'/../.env');
 $t = array();
-foreach($a as $a){
-	$z = explode($a,$b,2);
-	$x = explode("\n",$z[1]);
-	$t[] = trim($x[0]);
+foreach ($a as $a) {
+    $z = explode($a, $b, 2);
+    $x = explode("\n", $z[1]);
+    $t[] = trim($x[0]);
 }
 $db = array(
 "conn"=>$t[0],

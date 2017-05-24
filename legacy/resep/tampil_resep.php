@@ -2,35 +2,37 @@
 
 <?php
 include("koneksi.php");
-$nomor	=$_POST['nomor'];
-$pasien	=$_POST['pasien'];
-$uang	=$_POST['uang'];
-$untuk	=$_POST['untuk'];
-$dokter	=$_POST['dokter'];
-$angka	=$_POST['angka'];
+$nomor    =$_POST['nomor'];
+$pasien    =$_POST['pasien'];
+$uang    =$_POST['uang'];
+$untuk    =$_POST['untuk'];
+$dokter    =$_POST['dokter'];
+$angka    =$_POST['angka'];
 
-$insert	= "insert into resep values ('$nomor','$pasien','$uang','$untuk','$dokter','$angka',now())";
+$insert    = "insert into resep values ('$nomor','$pasien','$uang','$untuk','$dokter','$angka',now())";
 mysql_query($insert);
 
-if($insert){?>
+if ($insert) {
+    ?>
 	<script language="JavaScript" type="text/javascript">
 		alert("Resep / Kwitansi Disimpan");
 	</script>
-<?
+<?php
+
 }// TUTUP if($insert){?>
 
 <!-- ======================================================================================================================================  -->
 <?php 
-$query			= "select * from resep order by tgl DESC";
-$eks_query		= mysql_query($query);
-$ambil_query	= mysql_fetch_array($eks_query);
-$no				= $ambil_query[0];
-$pasien			= $ambil_query[1];
-$uang			= $ambil_query[2];
-$untuk			= $ambil_query[3];
-$dokter			= $ambil_query[4];
-$angka			= $ambil_query[5];
-$tgl			= $ambil_query[6];
+$query            = "select * from resep order by tgl DESC";
+$eks_query        = mysql_query($query);
+$ambil_query    = mysql_fetch_array($eks_query);
+$no                = $ambil_query[0];
+$pasien            = $ambil_query[1];
+$uang            = $ambil_query[2];
+$untuk            = $ambil_query[3];
+$dokter            = $ambil_query[4];
+$angka            = $ambil_query[5];
+$tgl            = $ambil_query[6];
 ?>
 
 <center>
@@ -88,15 +90,15 @@ $tgl			= $ambil_query[6];
 	<tr>
 		<td>Rp</td>
 		<td>:</td>
-		<td><?php echo"Rp. ".number_format($angka,0,",",".").",00"; ?></td>
+		<td><?php echo"Rp. ".number_format($angka, 0, ",", ".").",00"; ?></td>
 	</tr>
 </table>
 <hr />
 
 <?php
-	//Tampilkan Tanggal
-	echo "Bandung, $tgl";
-	//echo $tgl_jual=date('Ym');
+    //Tampilkan Tanggal
+    echo "Bandung, $tgl";
+    //echo $tgl_jual=date('Ym');
 ?>
 <br /><br /><br /><br /><br />
 (Apotek TBS)<br />

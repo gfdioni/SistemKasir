@@ -5,9 +5,9 @@ include("koneksi.php");
 
 //query untuk menghapus data karyawan
 $username = @$_GET['username'];
-if($username!=""){
-	$query = "DELETE FROM KARYAWAN WHERE username = '$username'";
-	mysql_query($query);
+if ($username!="") {
+    $query = "DELETE FROM KARYAWAN WHERE username = '$username'";
+    mysql_query($query);
 }
 ?>
 
@@ -35,11 +35,11 @@ echo("<tr align='center' bgcolor='cyan'>
 		<td width='150'>Jabatan</td>
 		<td width='150' colspan='2'>Operasi</td></tr>
 	 ");
-	
+    
 $query="SELECT * FROM KARYAWAN ORDER BY username";
 $tampil_data=mysql_query($query);
-while($data=mysql_fetch_row($tampil_data)){
-	echo("<tr align='center'> 
+while ($data=mysql_fetch_row($tampil_data)) {
+    echo("<tr align='center'> 
 			<td>$data[0]</td> 
 			<td>$data[2]</td> 
 			<td><a href=\"?page=karyawan_view&username=$data[0]\" onClick='return confirmDelete();'>hapus</a></td> 

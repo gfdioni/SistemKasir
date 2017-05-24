@@ -51,16 +51,14 @@ $no_faktur=@$_GET['no_faktur'];
 </center>
 </form>
 
-<?
-if(isset($_POST['cari'])){
-	$awal	= @$_POST['periode_awal'];
-	$akhir	= @$_POST['periode_akhir'];
-	
-	$queryfaktur = "select * from faktur where tgl_faktur between '$awal' and '$akhir'";
-	$eks_queryfaktur = mysql_query($queryfaktur);
-	$hasil_eks_queryfaktur = mysql_fetch_array($eks_queryfaktur);
-	
-	?>
+<?php
+if (isset($_POST['cari'])) {
+    $awal    = @$_POST['periode_awal'];
+    $akhir    = @$_POST['periode_akhir'];
+    
+    $queryfaktur = "select * from faktur where tgl_faktur between '$awal' and '$akhir'";
+    $eks_queryfaktur = mysql_query($queryfaktur);
+    $hasil_eks_queryfaktur = mysql_fetch_array($eks_queryfaktur); ?>
 	<br /><h5>Histori Faktur Dari Tanggal <font color="blue"><?php echo date('d-m-Y', strtotime($awal)); ?></font> sampai <font color="blue"><?php echo date('d-m-Y', strtotime($akhir)); ?></font></h5>
 	<font color="#FF0000"><b>Klik No Faktur untuk melakukan Revisi</b></font>
 	
@@ -76,31 +74,35 @@ if(isset($_POST['cari'])){
 			<td width="60">Diskon Ekstra(%)</td>
 			<td width="60">PPN(%)</td>
 		</tr>
-	<?
-		$sql_faktur = "select * from faktur f, pemesanan p, pbf where f.id_pesan = p.id_pesan AND p.kode_pbf=pbf.kode_pbf AND f.tgl_faktur between '$awal' and '$akhir'";
-		$eks_sql_faktur = mysql_query($sql_faktur);
-		while($data=mysql_fetch_array($eks_sql_faktur)){?>
+	<?php
+        $sql_faktur = "select * from faktur f, pemesanan p, pbf where f.id_pesan = p.id_pesan AND p.kode_pbf=pbf.kode_pbf AND f.tgl_faktur between '$awal' and '$akhir'";
+    $eks_sql_faktur = mysql_query($sql_faktur);
+    while ($data=mysql_fetch_array($eks_sql_faktur)) {
+        ?>
 		<tr align="center">
-			<td><?php echo $data['id_pesan'];?></td>
-			<td><?php echo (" <a href='?page=faktur_histori&no_faktur=$data[1]'>$data[1]</a> ");?></td> 
-			<td><?php echo $data['nama_pbf'];?></td>
-			<td><?php echo date('d-m-Y', strtotime($data['tgl_faktur']));?></td>
-			<td><?php echo "Rp ".number_format($data['total_harga'],0,",",".").",00";?></td>
-			<td><?php echo date('d-m-Y', strtotime($data['tgl_jatuh_tempo']));?></td>
-			<td><?php echo $data['username'];?></td>
-			<td><?php echo $data['diskon_ekstra'];?></td>
-			<td><?php echo $data['ppn'];?></td>	
+			<td><?php echo $data['id_pesan']; ?></td>
+			<td><?php echo(" <a href='?page=faktur_histori&no_faktur=$data[1]'>$data[1]</a> "); ?></td> 
+			<td><?php echo $data['nama_pbf']; ?></td>
+			<td><?php echo date('d-m-Y', strtotime($data['tgl_faktur'])); ?></td>
+			<td><?php echo "Rp ".number_format($data['total_harga'], 0, ",", ".").",00"; ?></td>
+			<td><?php echo date('d-m-Y', strtotime($data['tgl_jatuh_tempo'])); ?></td>
+			<td><?php echo $data['username']; ?></td>
+			<td><?php echo $data['diskon_ekstra']; ?></td>
+			<td><?php echo $data['ppn']; ?></td>	
 		</tr>
-		<?
-		}// tutup while($data=mysql_fetch_array($eks_sql_faktur)) ?>
-	</table><?
+		<?php
+
+    }// tutup while($data=mysql_fetch_array($eks_sql_faktur))?>
+	</table><?php
+
 } //if(isset($_POST['cari')){
 
-if($no_faktur != ""){?>
+if ($no_faktur != "") {
+    ?>
 	<br /><hr />
-	<br /><h5>Detail Faktur No = <? echo $no_faktur;?> </h5> <?
-	
-	} // tutup if($no_faktur != ""){
+	<br /><h5>Detail Faktur No = <?php echo $no_faktur; ?> </h5> <?php
+
+} // tutup if($no_faktur != ""){
 
 ?>
 

@@ -5,7 +5,8 @@ $alamat_pbf=$_POST['alamat_pbf'];
 $no_telp_pbf=$_POST['no_telp_pbf'];
 $query="INSERT INTO PBF(kode_pbf,nama_pbf,alamat,no_telp) VALUES ('','$nama_pbf','$alamat_pbf','$no_telp_pbf')";
 $eksekusi=mysql_query($query);
-if(isset($eksekusi)){ ?>
+if (isset($eksekusi)) {
+    ?>
 	DATA PBF SUKSES DIMASUKKAN<br /><br />
 	<table>
 		<tr>
@@ -25,8 +26,7 @@ if(isset($eksekusi)){ ?>
 		</tr>
 	</table>
 	<br /><a href="?page=pbf_insert">Tambah Data PBF Lagi</a> <?php 
+} else {
+    echo("Data Gagal Dimasukkan");
 }
-else{
-	echo("Data Gagal Dimasukkan");
-}	
 ?>

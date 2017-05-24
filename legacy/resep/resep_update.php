@@ -49,16 +49,16 @@ function validate_form ()
 include("koneksi.php");
 $no = $_GET['no'];
 
-$query			= "select * from resep where no = '$no' order by tgl DESC";
-$eks_query		= mysql_query($query);
-$ambil_query	= mysql_fetch_array($eks_query);
-$no				= $ambil_query[0];
-$pasien			= $ambil_query[1];
-$uang			= $ambil_query[2];
-$untuk			= $ambil_query[3];
-$dokter			= $ambil_query[4];
-$angka			= $ambil_query[5];
-$tgl			= $ambil_query[6];
+$query            = "select * from resep where no = '$no' order by tgl DESC";
+$eks_query        = mysql_query($query);
+$ambil_query    = mysql_fetch_array($eks_query);
+$no                = $ambil_query[0];
+$pasien            = $ambil_query[1];
+$uang            = $ambil_query[2];
+$untuk            = $ambil_query[3];
+$dokter            = $ambil_query[4];
+$angka            = $ambil_query[5];
+$tgl            = $ambil_query[6];
 ?>
 
 <form name="resep" method="post" onsubmit="return validate_form();">
@@ -98,21 +98,22 @@ $tgl			= $ambil_query[6];
 </form>
 
 <?php
-if(isset($_POST['update'])){
-	$nomor_baru		=$_POST['nomor_baru'];
-	$pasien_baru	=$_POST['pasien_baru'];
-	$uang_baru		=$_POST['uang_baru'];
-	$untuk_baru		=$_POST['untuk_baru'];
-	$dokter_baru	=$_POST['dokter_baru'];
-	$angka_baru		=$_POST['angka_baru'];
-	
-	$update = "update resep set no='$nomor_baru', pasien='$pasien_baru', uang='$uang_baru', untuk='$untuk_baru', dokter='$dokter_baru', angka='$angka_baru' where no='$no'";
-	mysql_query($update); ?>
+if (isset($_POST['update'])) {
+    $nomor_baru        =$_POST['nomor_baru'];
+    $pasien_baru    =$_POST['pasien_baru'];
+    $uang_baru        =$_POST['uang_baru'];
+    $untuk_baru        =$_POST['untuk_baru'];
+    $dokter_baru    =$_POST['dokter_baru'];
+    $angka_baru        =$_POST['angka_baru'];
+    
+    $update = "update resep set no='$nomor_baru', pasien='$pasien_baru', uang='$uang_baru', untuk='$untuk_baru', dokter='$dokter_baru', angka='$angka_baru' where no='$no'";
+    mysql_query($update); ?>
 	<script language="JavaScript" type="text/javascript">
 		alert("Resep / Kwitansi Berhasil Di Edit");
 		document.location='index.php?page=cari_resep';
 	</script>
 	<?php
+
 } //TUTUP if(isset($_POST['update'])){
 ?>
 
