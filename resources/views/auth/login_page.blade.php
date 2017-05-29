@@ -22,7 +22,7 @@
 <div class="cgu" id="dg">
     <div class="cg2">
         <div class="htr"><h3>Login Kasir</h3></div>
-        <form action="#">
+        <form onsubmit="login()" action="javascript:void(0)" method="post">
         <div class="lin">
             <label>Username :</label>
         </div>
@@ -36,8 +36,7 @@
             <input type="password" required name="password" size="28" id="p">
         </div>
         <div class="insb">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <button type="button" id="sbbt" onclick="login();">Login</button>
+            <button type="submit" id="sbbt">Login</button>
         </div>
         </form>
         <div class="rgcg">
