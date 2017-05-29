@@ -6,10 +6,29 @@
     <meta property="og:title" content="Login">
     <meta property="og:description" content="Login">
     <meta name="description" content="Login">
+    <meta name="csrf-token" content="{{{ csrf_token() }}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/login.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.js"></script>
+    <script src="/js/jquery-3.2.1.min.dev.js"></script>
     <script type="text/javascript">
+    function login(){
+        $.post("login/action",
+        {
+            username: $("#u").val(),
+            password: $("#p").val(),
+            _token: "{{ csrf_token() }}"
+        },
+        function(data, status){
+            if (status=='success') {
+                if (typeof data.alert!='undefined') {
+                    alert(data.alert);
+                }
+                if (typeof data.redirect!='undefined') {
+                    window.location = data.redirect;
+                }
+                console.log(data);
+            }
+    })}; 
     </script>
 </head>    
 <body>
