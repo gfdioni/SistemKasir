@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [
+Route::get('/login', function(){
+	return view('auth/login_page');
+});
+
+Route::post('/login/action', [
     "uses"  => "AuthController@login_page",
     "as"    => "login_page",
 ]);

@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <form action="#" method="post">
+        <form action="/login/action" method="post">
             <table border="0" align="center">
                 <tr>
                     <td>Username</td>
@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td></td>
+                    <td><input type="hidden" name="_token" value="{{ csrf_token() }}"></td>
                     <td><input type="submit" value="Login"></td>
                 </tr>
             </table>
