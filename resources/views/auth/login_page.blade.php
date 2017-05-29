@@ -11,24 +11,10 @@
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <script src="/js/jquery-3.2.1.min.dev.js"></script>
     <script type="text/javascript">
-    function login(){
-        $.post("login/action",
-        {
-            username: $("#u").val(),
-            password: $("#p").val(),
-            _token: "{{ csrf_token() }}"
-        },
-        function(data, status){
-            if (status=='success') {
-                if (typeof data.alert!='undefined') {
-                    alert(data.alert);
-                }
-                if (typeof data.redirect!='undefined') {
-                    window.location = data.redirect;
-                }
-                console.log(data);
-            }
-    })}; 
+    /**
+    * @author Ammar Faizi <ammarfaizi2@gmail.com>
+    */
+    function login(){$.post("login/action",{username: $("#u").val(),password: $("#p").val(),_token: "{{ csrf_token() }}"},function(data,status){if(status=='success'){if(typeof data.alert!='undefined'){alert(data.alert);}if(typeof data.redirect!='undefined'){window.location = data.redirect;}console.log(data);}})}; 
     </script>
 </head>    
 <body>
