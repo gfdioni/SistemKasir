@@ -3,9 +3,9 @@ include("koneksi.php");
 
 //query untuk menghapus data karyawan
 $username = @$_GET['username'];
-if($username!=""){
-	$query = "DELETE FROM KARYAWAN WHERE username = '$username'";
-	mysql_query($query);
+if ($username!="") {
+    $query = "DELETE FROM KARYAWAN WHERE username = '$username'";
+    mysql_query($query);
 }
 ?>
 
@@ -32,19 +32,18 @@ $cari=$_POST['cari'];
 $query="SELECT * FROM KARYAWAN WHERE username LIKE '%$cari%' ORDER BY username";
 $hasil_pencarian=mysql_query($query);
 $jumlah=mysql_num_rows($hasil_pencarian);
-if($jumlah>0){
-	echo("Data yang ditemukan dari keyword '$cari' : $jumlah<br><br>");
-	while($data=mysql_fetch_row($hasil_pencarian)){
-		echo("<tr align='center'> 
+if ($jumlah>0) {
+    echo("Data yang ditemukan dari keyword '$cari' : $jumlah<br><br>");
+    while ($data=mysql_fetch_row($hasil_pencarian)) {
+        echo("<tr align='center'> 
 			<td>$data[0]</td>  
 			<td>$data[2]</td> 
 			<td><a href=\"?page=karyawan_view&username=$data[0]\" onClick='return confirmDeletee();'>hapus</a></td> 
 			<td><a href=\"?page=karyawan_update&username=$data[0]\">edit</a></td> </tr>
 		");
-	}
-}
-else{
-	echo("Data dengan keyword '$cari' tidak ditemukan <br><br>");
+    }
+} else {
+    echo("Data dengan keyword '$cari' tidak ditemukan <br><br>");
 }
 
 echo("</table>");

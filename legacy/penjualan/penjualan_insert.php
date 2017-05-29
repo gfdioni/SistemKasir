@@ -11,9 +11,9 @@ $username=@$_SESSION['username']; //ambil username dari session
 <?php
 //query untuk menghapus transaksi
 $kode_obat = @$_GET['kode_obat'];
-if($kode_obat!=""){
-	$query = "DELETE FROM TEMP_PENJUALAN WHERE kode_obat = '$kode_obat' AND username='$username'";
-	mysql_query($query);
+if ($kode_obat!="") {
+    $query = "DELETE FROM TEMP_PENJUALAN WHERE kode_obat = '$kode_obat' AND username='$username'";
+    mysql_query($query);
 }
 ?>
 
@@ -23,8 +23,8 @@ function confirmDelete() {
 	
 	if (confirm("Hapus Dasssta?")) {
 		<?php
-		$sql = "select * from temp_penjualan where kode_obat = '$kode_obat'";
-		$eks = mysql_query($sql);?>
+        $sql = "select * from temp_penjualan where kode_obat = '$kode_obat'";
+        $eks = mysql_query($sql);?>
 	}else {
 		conf = false;
 	}
@@ -169,25 +169,25 @@ function validate_form2()
 
 <form name="bayar" action="?page=penjualan_insert" method="post" onsubmit="return validate_form2();">
 <?php
-if(isset($_POST['tambah'])){ //script ini dilkukan saat button bernama "tambah" ditekan
-	?>
+if (isset($_POST['tambah'])) { //script ini dilkukan saat button bernama "tambah" ditekan
+    ?>
 	
 	<br /><br />
 	No Kartu : <input type="text" name="no_kartu" autocomplete="off" value="0"/>
 	Cash : <input type="text" name="bayar" autocomplete="off" placeholder="harus diisi..!" />
 	<input type="submit" value="CONFIRM" name="insert_penjualan" />
 	<?php
-	
-	$kode_obat = @$_POST['kode_obat']; //ambil kode_obat dari form diatas yang bernama"jumlah" dan masukkan ke variabel $kode_obat
-	$qty = @$_POST['qty']; //ambil qty dari form diatas yang bernama"jumlah" dan masukkan ke variabel $qty
-	
-	//$cekstok = "select sum(stok) from batch where kode_obat = '$_POST[kode_obat]' AND EXPIRED-CURDATE() >= 100 group by kode_obat"; //query untuk cek jumlah stok obat saat ini
-	$cekstok = "select sum(stok) from etalase where kode_obat = '$_POST[kode_obat]' group by kode_obat"; //query untuk cek jumlah stok obat saat ini
-	$eks = mysql_query($cekstok); //eksekusi query bernama $cekstok diatas
-	$row=mysql_fetch_array($eks);
-	$stok_sekarang=$row[0]; //masukkan jumlah stok obat ke variabel $stok_sekarang
-	
-	if($qty>$stok_sekarang){ //bila stok TIDAK MENCUKUPI untuk dijual, maka lakukan script di bawah ini?>
+
+    $kode_obat = @$_POST['kode_obat']; //ambil kode_obat dari form diatas yang bernama"jumlah" dan masukkan ke variabel $kode_obat
+    $qty = @$_POST['qty']; //ambil qty dari form diatas yang bernama"jumlah" dan masukkan ke variabel $qty
+    
+    //$cekstok = "select sum(stok) from batch where kode_obat = '$_POST[kode_obat]' AND EXPIRED-CURDATE() >= 100 group by kode_obat"; //query untuk cek jumlah stok obat saat ini
+    $cekstok = "select sum(stok) from etalase where kode_obat = '$_POST[kode_obat]' group by kode_obat"; //query untuk cek jumlah stok obat saat ini
+    $eks = mysql_query($cekstok); //eksekusi query bernama $cekstok diatas
+    $row=mysql_fetch_array($eks);
+            $stok_sekarang=$row[0]; //masukkan jumlah stok obat ke variabel $stok_sekarang
+    
+    if ($qty>$stok_sekarang) { //bila stok TIDAK MENCUKUPI untuk dijual, maka lakukan script di bawah ini?>
 	
 		<script language="javascript">
 			alert('Stok di Etalase tidak mencukupi, sisa stok <?php echo $stok_sekarang; ?>. Silahkan lakukan MUTASI PRODUK');
@@ -203,28 +203,27 @@ if(isset($_POST['tambah'])){ //script ini dilkukan saat button bernama "tambah" 
 				<td width="100">Opr</td>
 			</tr>
 			<?php
-			$totalharga = 0;
-			$sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
-			$query=mysql_query($sql);
-			while($row=mysql_fetch_array($query)){
-			$total = $row['harga']*$row['qty'];
-			?>
+            $totalharga = 0;
+        $sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
+        $query=mysql_query($sql);
+        while ($row=mysql_fetch_array($query)) {
+            $total = $row['harga']*$row['qty']; ?>
 				<tr>
 					<td align="left"><?php echo $row['nama_obat']; ?></td>
 					<td align="center"><?php echo $row['satuan']; ?></td>
 					<td align="right"><?php echo $row['harga']; ?></td>
 					<td align="center"><?php echo $row['qty']; ?></td>
-					<td align="right"><?php echo $total;?></td>
+					<td align="right"><?php echo $total; ?></td>
 					<td align="center"><a href="index.php?page=penjualan_insert&kode_obat=<?php echo $row['kode_obat']; ?>"  onClick='return confirmDelete();'>hapus</a></td>
 				</tr>
 			<?php
-			$totalharga = $totalharga + $total;
-			}
-			?>
+            $totalharga = $totalharga + $total;
+        } ?>
 		</table><br />
-		<?php echo"<font size='5'>Rp. ".number_format($totalharga,0,",",".").",00</font>"; ?> <br />
+		<?php echo"<font size='5'>Rp. ".number_format($totalharga, 0, ",", ".").",00</font>"; ?> <br />
 	<?php
-	}else{ // bila stok etalase cukup dijual?>
+
+    } else { // bila stok etalase cukup dijual?>
 		<table border="0" align="center">
 			<tr  bgcolor="#00FFFF" align="center">
 				<td width="400">Nama Obat</td>
@@ -235,49 +234,49 @@ if(isset($_POST['tambah'])){ //script ini dilkukan saat button bernama "tambah" 
 				<td width="100">Opr</td>
 			</tr>
 			<?php
-			$totalharga = 0;
+            $totalharga = 0;
 
-			$insert="insert into temp_penjualan(kode_obat,qty,username) values ('$kode_obat','$qty','$username')"; //ambil variabel $kode_obat dan $qty dari LINE 50-51
-			mysql_query($insert);
-		
-			$sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
-			$query=mysql_query($sql);
-			while($row=mysql_fetch_array($query)){
-			$total = $row['harga']*$row['qty']; ?>
+        $insert="insert into temp_penjualan(kode_obat,qty,username) values ('$kode_obat','$qty','$username')"; //ambil variabel $kode_obat dan $qty dari LINE 50-51
+            mysql_query($insert);
+        
+        $sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
+        $query=mysql_query($sql);
+        while ($row=mysql_fetch_array($query)) {
+            $total = $row['harga']*$row['qty']; ?>
 				<tr>
 					<td align="left"><?php echo $row['nama_obat']; ?></td>
 					<td align="center"><?php echo $row['satuan']; ?></td>
 					<td align="center"><?php echo $row['harga']; ?></td>
 					<td align="center"><?php echo $row['qty']; ?></td>
-					<td align="center"><?php echo $total;?></td>
+					<td align="center"><?php echo $total; ?></td>
 					<td align="center"><a href="index.php?page=penjualan_insert&kode_obat=<?php echo $row['kode_obat']; ?>"  onClick='return confirmDelete();'>hapus</a></td>
 				</tr>
 			<?php
-			$totalharga = $totalharga + $total;
-			}
-			?>
+            $totalharga = $totalharga + $total;
+        } ?>
 		</table><br />
-		<?php echo"<font size='5'>Rp. ".number_format($totalharga,0,",",".").",00</font>"; ?> <br /><?php
-	}
-} // tutup IF line if(isset($_POST['tambah'])){ ?>			
+		<?php echo"<font size='5'>Rp. ".number_format($totalharga, 0, ",", ".").",00</font>"; ?> <br /><?php
+
+    }
+        } // tutup IF line if(isset($_POST['tambah'])){?>			
 </form>
 
 <?php
-if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernama"confirm" ditekan
-	
-	$totalharga=0;
-	$sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
-	$querysql=mysql_query($sql);
-	while($row=mysql_fetch_array($querysql)){
-		$total = $row['harga']*$row['qty'];
-		$totalharga = $totalharga + $total;
-	}
-	
-	$no_kartu = $_POST['no_kartu'];
-	$bayar = $_POST['bayar'];
-	if($bayar < $totalharga){ // JIKA UANG PEMBAYARAN TIDAK MENCUKUPI
-	
-		?><script language="javascript">alert("Pembayaran Tidak Mencukupi -- <?php echo "Total Harga = $totalharga -- Pembayaran=$bayar";?>");</script>
+if (isset($_POST['insert_penjualan'])) { //script ini dilakukan saat button bernama"confirm" ditekan
+    
+    $totalharga=0;
+            $sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
+            $querysql=mysql_query($sql);
+            while ($row=mysql_fetch_array($querysql)) {
+                $total = $row['harga']*$row['qty'];
+                $totalharga = $totalharga + $total;
+            }
+    
+            $no_kartu = $_POST['no_kartu'];
+            $bayar = $_POST['bayar'];
+            if ($bayar < $totalharga) { // JIKA UANG PEMBAYARAN TIDAK MENCUKUPI
+    
+        ?><script language="javascript">alert("Pembayaran Tidak Mencukupi -- <?php echo "Total Harga = $totalharga -- Pembayaran=$bayar"; ?>");</script>
 		<form action="?page=penjualan_insert" method="post">
 		<br /><br />
 		No Kartu : <input type="text" name="no_kartu" autocomplete="off" value="0"/>
@@ -294,97 +293,92 @@ if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernam
 				<td width="50">Sub Total</td>
 			</tr>
 			<?php
-			$totalharga = 0;
+            $totalharga = 0;
 
-			//$insert="insert into temp_penjualan(kode_obat,qty) values('$kode_obat','$qty')"; //ambil variabel $kode_obat dan $qty dari LINE 50-51
-			//mysql_query($insert);
-		
-			$sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
-			$query=mysql_query($sql);
-			while($row=mysql_fetch_array($query)){
-			$total = $row['harga']*$row['qty']; ?>
+            //$insert="insert into temp_penjualan(kode_obat,qty) values('$kode_obat','$qty')"; //ambil variabel $kode_obat dan $qty dari LINE 50-51
+            //mysql_query($insert);
+        
+            $sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
+                $query=mysql_query($sql);
+                while ($row=mysql_fetch_array($query)) {
+                    $total = $row['harga']*$row['qty']; ?>
 				<tr>
 					<td align="left"><?php echo $row['nama_obat']; ?></td>
 					<td align="center"><?php echo $row['satuan']; ?></td>
 					<td align="right"><?php echo $row['harga']; ?></td>
 					<td align="center"><?php echo $row['qty']; ?></td>
-					<td align="right"><?php echo $total;?></td>
+					<td align="right"><?php echo $total; ?></td>
 				</tr>
 			<?php
-			$totalharga = $totalharga + $total;
-			}
-			?>
+            $totalharga = $totalharga + $total;
+                } ?>
 		</table><br />
-		<?php echo"<font size='5'>Rp. ".number_format($totalharga,0,",",".").",00</font>"; ?> <br />
+		<?php echo"<font size='5'>Rp. ".number_format($totalharga, 0, ",", ".").",00</font>"; ?> <br />
 	<?php	
-	}
-	else{ // JIKA UANG PEMBAYARAN CUKUP
-	
-		$tgl_jual=date('Y-m-d'); //ambil tanggal dari fungsi di PHP
-		
-		//masukkan data ke tabel penjualan
-		$insert="insert into penjualan(no_struk,tgl_jual,username,jam_jual,no_kartu) values('','$tgl_jual','$username',curtime(),$no_kartu)";
-		$query = mysql_query($insert);
-		$no_struk = mysql_insert_id(); //mengambil kembali no_struk yang tadi di generate dan telah di save dalam tabel penjualan
-		
-		//mengambil semua kolom dr tabel obat dan temp_penjualan
-		$sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
-		$query=mysql_query($sql); //eksekusi query bernama $sql diatas
-		
-		$total_harga=0; //deklarasikan variabel untuk mengalikan harga obat dan jumlah obat yang dibeli
-		while($row=mysql_fetch_array($query)){
-			$kode_obat=$row['kode_obat']; //mengambil kode obat dari hasil join table obat dan temp_penjualan
-			$qty=$row['qty']; //mengambil qty dari tabel temp_penjualan
-			
-			$sqlcari = "select * from etalase where kode_obat = '$kode_obat' and stok>0 order by tgl_obat_masuk asc, jam_obat_masuk asc, id asc "; //digunakan utk keperluan update stok di batch nanti
-			$querycari = mysql_query($sqlcari);
-			$rowcari = mysql_fetch_array($querycari);
-			
-			$id = $rowcari['id'];
-			$stok = $rowcari['stok']; // menempatkan jumlah stok dari tabel batch ke dalam variabel $stok
-			$temp_qty = $qty; // mengisi variabel $temp_qty dengan variabel $qty yang sudah didapat dari tabel temp_penjualan (LINE 152)
-			
-			if($stok>=$temp_qty){ // dipilih saat jumlah stok di satu batch mencukupi saat melakukan sekali penjualan
-				$total = $row['harga']*$row['qty']; //variabel $total dgunakan utk mengalikan harga dr tabel obat dengan qty dr tabel temp_penjualan
-				$insert2 = "insert into detail_penjualan(no_struk,no_batch,harga,jumlah,total_harga,id_etalase) values('$no_struk','$rowcari[no_batch]','$row[harga]','$qty','$total','$rowcari[id]')";
-				mysql_query($insert2);
-				$total_harga = $total_harga + $total; //digunakan untuk menghitung total harga untuk dimasikkan ke tabel PENJUALAN
-				$sisa = $rowcari['stok'] - $qty; //digunakan untuk mengurangi stok di tabel batch
-				$update2 = "update etalase set stok='$sisa' where no_batch='$rowcari[no_batch]' and id='$rowcari[id]'";
-				mysql_query($update2);
-			}
-			else{ // dipilih saat jumlah stok di satu batch TIDAK mencukupi saat melakukan penjualan
-				while($temp_qty>0){
-					if($rowcari['stok']<=$temp_qty){ //dipilih saat stok di satu batch lebih kecil daripada jumlah yang akan dijual
-						$jumlah = $rowcari['stok']; //definisikan variabel jumlah, dan isi variabel tersebut sesuai dengan stok di batch
-					}else{ //dipilih saat stok di satu batch lebih besar daripada jumlah yang akan dijual
-						$jumlah = $temp_qty; //definisikan variabel jumlah, dan isi variabel tersebut sesuai dengan sisa jumlah pengambilan batch
-					}
-					$total = $row['harga']*$jumlah; //untuk menghitung perkalian harga dari tabel obat dengan jumlah
-					$insert2="insert into detail_penjualan(no_struk,no_batch,harga,jumlah,total_harga,id_etalase) values('$no_struk','$rowcari[no_batch]','$row[harga]','$jumlah','$total','$rowcari[id]')";
-					mysql_query($insert2);
-					$sisa=$rowcari['stok'] - $jumlah; //digunakan untuk mengurangi stok di tabel batch
-					$update2="update etalase set stok='$sisa' where no_batch='$rowcari[no_batch]' and id='$rowcari[id]'";
-					mysql_query($update2);
-					$temp_qty=$temp_qty-$rowcari['stok']; // digunakan untuk looping hingga $temp_qty bernilai "0"
-					$total_harga = $total_harga + $total; //digunakan untuk menghitung total harga untuk dimasikkan ke tabel PENJUALAN
-					$rowcari=mysql_fetch_array($querycari);
-				} //tutup while di LINE while($temp_qty>0){
-			} //tutup else di LINE 
-			
-		} //tutup WHILE di LINE while($row=mysql_fetch_array($query)){?>
+            } else { // JIKA UANG PEMBAYARAN CUKUP
+    
+        $tgl_jual=date('Y-m-d'); //ambil tanggal dari fungsi di PHP
+        
+        //masukkan data ke tabel penjualan
+        $insert="insert into penjualan(no_struk,tgl_jual,username,jam_jual,no_kartu) values('','$tgl_jual','$username',curtime(),$no_kartu)";
+                $query = mysql_query($insert);
+                $no_struk = mysql_insert_id(); //mengambil kembali no_struk yang tadi di generate dan telah di save dalam tabel penjualan
+        
+        //mengambil semua kolom dr tabel obat dan temp_penjualan
+        $sql="select * from obat,temp_penjualan where obat.kode_obat=temp_penjualan.kode_obat AND username='$username'";
+                $query=mysql_query($sql); //eksekusi query bernama $sql diatas
+        
+        $total_harga=0; //deklarasikan variabel untuk mengalikan harga obat dan jumlah obat yang dibeli
+        while ($row=mysql_fetch_array($query)) {
+            $kode_obat=$row['kode_obat']; //mengambil kode obat dari hasil join table obat dan temp_penjualan
+            $qty=$row['qty']; //mengambil qty dari tabel temp_penjualan
+            
+            $sqlcari = "select * from etalase where kode_obat = '$kode_obat' and stok>0 order by tgl_obat_masuk asc, jam_obat_masuk asc, id asc "; //digunakan utk keperluan update stok di batch nanti
+            $querycari = mysql_query($sqlcari);
+            $rowcari = mysql_fetch_array($querycari);
+            
+            $id = $rowcari['id'];
+            $stok = $rowcari['stok']; // menempatkan jumlah stok dari tabel batch ke dalam variabel $stok
+            $temp_qty = $qty; // mengisi variabel $temp_qty dengan variabel $qty yang sudah didapat dari tabel temp_penjualan (LINE 152)
+            
+            if ($stok>=$temp_qty) { // dipilih saat jumlah stok di satu batch mencukupi saat melakukan sekali penjualan
+                $total = $row['harga']*$row['qty']; //variabel $total dgunakan utk mengalikan harga dr tabel obat dengan qty dr tabel temp_penjualan
+                $insert2 = "insert into detail_penjualan(no_struk,no_batch,harga,jumlah,total_harga,id_etalase) values('$no_struk','$rowcari[no_batch]','$row[harga]','$qty','$total','$rowcari[id]')";
+                mysql_query($insert2);
+                $total_harga = $total_harga + $total; //digunakan untuk menghitung total harga untuk dimasikkan ke tabel PENJUALAN
+                $sisa = $rowcari['stok'] - $qty; //digunakan untuk mengurangi stok di tabel batch
+                $update2 = "update etalase set stok='$sisa' where no_batch='$rowcari[no_batch]' and id='$rowcari[id]'";
+                mysql_query($update2);
+            } else { // dipilih saat jumlah stok di satu batch TIDAK mencukupi saat melakukan penjualan
+                while ($temp_qty>0) {
+                    if ($rowcari['stok']<=$temp_qty) { //dipilih saat stok di satu batch lebih kecil daripada jumlah yang akan dijual
+                        $jumlah = $rowcari['stok']; //definisikan variabel jumlah, dan isi variabel tersebut sesuai dengan stok di batch
+                    } else { //dipilih saat stok di satu batch lebih besar daripada jumlah yang akan dijual
+                        $jumlah = $temp_qty; //definisikan variabel jumlah, dan isi variabel tersebut sesuai dengan sisa jumlah pengambilan batch
+                    }
+                    $total = $row['harga']*$jumlah; //untuk menghitung perkalian harga dari tabel obat dengan jumlah
+                    $insert2="insert into detail_penjualan(no_struk,no_batch,harga,jumlah,total_harga,id_etalase) values('$no_struk','$rowcari[no_batch]','$row[harga]','$jumlah','$total','$rowcari[id]')";
+                    mysql_query($insert2);
+                    $sisa=$rowcari['stok'] - $jumlah; //digunakan untuk mengurangi stok di tabel batch
+                    $update2="update etalase set stok='$sisa' where no_batch='$rowcari[no_batch]' and id='$rowcari[id]'";
+                    mysql_query($update2);
+                    $temp_qty=$temp_qty-$rowcari['stok']; // digunakan untuk looping hingga $temp_qty bernilai "0"
+                    $total_harga = $total_harga + $total; //digunakan untuk menghitung total harga untuk dimasikkan ke tabel PENJUALAN
+                    $rowcari=mysql_fetch_array($querycari);
+                } //tutup while di LINE while($temp_qty>0){
+            } //tutup else di LINE
+        } //tutup WHILE di LINE while($row=mysql_fetch_array($query)){?>
 
 			
 			<?php
-			if($query){
-					$update = "update penjualan set total_harga = '$total_harga', bayar = '$bayar', dokter = 'umum' where no_struk = '$no_struk'";
-					mysql_query($update);
-					$hapus = "delete from temp_penjualan where username = '$username'";
-					mysql_query($hapus);
-					$kembali = $bayar-$total_harga;
-					?>
+            if ($query) {
+                $update = "update penjualan set total_harga = '$total_harga', bayar = '$bayar', dokter = 'umum' where no_struk = '$no_struk'";
+                mysql_query($update);
+                $hapus = "delete from temp_penjualan where username = '$username'";
+                mysql_query($hapus);
+                $kembali = $bayar-$total_harga; ?>
 					<script language="javascript">
-						alert("Penjualan Sukses -- <?php echo "Total Harga = $totalharga -- Pembayaran=$bayar -- Kembali=$kembali";?>");
+						alert("Penjualan Sukses -- <?php echo "Total Harga = $totalharga -- Pembayaran=$bayar -- Kembali=$kembali"; ?>");
 						document.location='penjualan/print_struk.php';
 					</script>
 					<br /><hr />
@@ -396,7 +390,7 @@ if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernam
 						<tr>
 							<td>No Struk</td>
 							<td>:</td> 
-							<td><?php echo $no_struk;?></td>
+							<td><?php echo $no_struk; ?></td>
 						</tr>
 						<tr>
 							<td>Kasir</td> 
@@ -406,7 +400,8 @@ if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernam
 						<tr>
 							<td>Tanggal</td>
 							<td>:</td>
-							<td><?php $tgl=date('d-m-Y'); echo $tgl; ?></td>
+							<td><?php $tgl=date('d-m-Y');
+                echo $tgl; ?></td>
 						</tr>
 					</table>
 					<br />
@@ -418,56 +413,56 @@ if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernam
 							<td width="30">SUB</td>
 						</tr>
 						<?php
-						$querystruk="select o.nama_obat, dp.harga as harga, sum(dp.jumlah) as jumlah, sum(dp.total_harga) as total_harga from penjualan p, detail_penjualan dp, batch b, obat o where dp.no_struk=p.no_struk and dp.no_batch = b.no_batch and o.kode_obat=b.kode_obat AND p.no_struk='$no_struk' group by o.kode_obat";
-						$eksekusi=mysql_query($querystruk);
-						while($row=mysql_fetch_array($eksekusi)){
-							$nama_obat=$row['nama_obat'];
-							$jumlah=$row['jumlah'];
-							$harga=$row['harga'];
-							$total_harga=$row['total_harga'];
-						?>
+                        $querystruk="select o.nama_obat, dp.harga as harga, sum(dp.jumlah) as jumlah, sum(dp.total_harga) as total_harga from penjualan p, detail_penjualan dp, batch b, obat o where dp.no_struk=p.no_struk and dp.no_batch = b.no_batch and o.kode_obat=b.kode_obat AND p.no_struk='$no_struk' group by o.kode_obat";
+                $eksekusi=mysql_query($querystruk);
+                while ($row=mysql_fetch_array($eksekusi)) {
+                    $nama_obat=$row['nama_obat'];
+                    $jumlah=$row['jumlah'];
+                    $harga=$row['harga'];
+                    $total_harga=$row['total_harga']; ?>
 							<tr>
 								<td><?php echo $nama_obat; ?></td>
 								<td align="center"><?php echo $jumlah; ?></td>
-								<td align="right"><?php echo"".number_format($harga,0,",",".").",00"; ?></td>
-								<td align="right"><?php echo"".number_format($total_harga,0,",",".").",00"; ?></td>
+								<td align="right"><?php echo"".number_format($harga, 0, ",", ".").",00"; ?></td>
+								<td align="right"><?php echo"".number_format($total_harga, 0, ",", ".").",00"; ?></td>
 							</tr>
 							<?php
-							$sqltotal = "select * from penjualan where no_struk='$no_struk'"; //digunakan untuk menampilkan total harga di struk
-							$query=mysql_query($sqltotal);
-							$row = mysql_fetch_array($query);
-							$total_harga = $row['total_harga'];
-							?>
+                            $sqltotal = "select * from penjualan where no_struk='$no_struk'"; //digunakan untuk menampilkan total harga di struk
+                            $query=mysql_query($sqltotal);
+                    $row = mysql_fetch_array($query);
+                    $total_harga = $row['total_harga']; ?>
 							<tr>
 							</tr>
 						<?php
-						} //tutup while di LINE 224
-						?>
+
+                } //tutup while di LINE 224
+                        ?>
 					</table>
 					<br />
 					<table>
 						<tr>
 							<td>T O T A L</td> 
 							<td>:</td> 
-							<td><?php echo"Rp. ".number_format($total_harga,0,",",".").",00"; ?></td>
+							<td><?php echo"Rp. ".number_format($total_harga, 0, ",", ".").",00"; ?></td>
 						</tr>
 						<tr>
 							<td>C A S H</td> 
 							<td>:</td> 
-							<td><?php echo"Rp. ".number_format($bayar,0,",",".").",00"; ?></td>
+							<td><?php echo"Rp. ".number_format($bayar, 0, ",", ".").",00"; ?></td>
 						</tr>
 						<tr>
 							<td>C H A N G E</td> 
 							<td>:</td> 
-							<td><?php echo"Rp. ".number_format($bayar-$total_harga,0,",",".").",00"; ?></td>
+							<td><?php echo"Rp. ".number_format($bayar-$total_harga, 0, ",", ".").",00"; ?></td>
 						</tr>
 					</table>	
 					<?php
-					echo ("<br/>Terima Kasih<br />Semoga Lekas Sembuh");	?>
+                    echo("<br/>Terima Kasih<br />Semoga Lekas Sembuh"); ?>
 				</font><?php
-			} // TUTUP IF if($query)
-	} // TUTUP ELSE di LINE else{ // JIKA UANG PEMBAYARAN CUKUP 
-} //TUTUP IF if(isset($_POST['insert_penjualan'])
+
+            } // TUTUP IF if($query)
+            } // TUTUP ELSE di LINE else{ // JIKA UANG PEMBAYARAN CUKUP
+        } //TUTUP IF if(isset($_POST['insert_penjualan'])
 
 ?>
 <br /><br />
@@ -475,11 +470,12 @@ if(isset($_POST['insert_penjualan'])){ //script ini dilakukan saat button bernam
 <input type="submit" value="BATALKAN TRANSAKSI" name="batal" />
 </form> <?php
 
-	if(isset($_POST['batal'])){ //script ini dilakukan saat button bernama"Batalkan Transaksi" ditekan
-		$querybatal="delete from temp_penjualan where username='$username'";
-		$eksbatal=mysql_query($querybatal);?>
+    if (isset($_POST['batal'])) { //script ini dilakukan saat button bernama"Batalkan Transaksi" ditekan
+        $querybatal="delete from temp_penjualan where username='$username'";
+        $eksbatal=mysql_query($querybatal); ?>
 		<script language="javascript">alert('Transaksi Dibatalkan');
 		document.location='index.php?page=penjualan_insert';
 		</script>
 	<?php
-	} // tutup IF line if(isset($_POST['batal'])?>
+
+    } // tutup IF line if(isset($_POST['batal'])?>

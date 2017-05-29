@@ -34,7 +34,8 @@ Masukkan Nama Obat : <input type="text" name="cari"  autofocus autocomplete="off
 </form>
 
 <?php
-if(isset($_POST['cari'])){?>
+if (isset($_POST['cari'])) {
+    ?>
 
 <table border="1">
 	<tr bgcolor="#6666FF" align="center">
@@ -50,40 +51,39 @@ if(isset($_POST['cari'])){?>
 		<td width="100">No Rak Etalase</td>
 	</tr>
 	<?php
-	$cari=$_POST['cari'];
-	$counter = 1;
-	$sql 	= "select o.kode_obat, o.nama_obat, o.satuan, sum(b.stok), o.harga,o.harga_langganan,o.rak from obat o, batch b
+    $cari=$_POST['cari'];
+    $counter = 1;
+    $sql    = "select o.kode_obat, o.nama_obat, o.satuan, sum(b.stok), o.harga,o.harga_langganan,o.rak from obat o, batch b
 			where o.kode_obat = b.kode_obat
 			and (o.nama_obat like '%$cari%' or o.kode_obat like '%$cari%')
 			group by o.kode_obat
 			order by o.nama_obat asc";
-	$eks 	= mysql_query($sql);
-	while($hasil=mysql_fetch_array($eks)){
-		$kode_obat=$hasil['kode_obat'];
-		$queryetalase = "select (sum(stok)) from etalase where kode_obat = '$kode_obat'";
-		$eksqueryetalase = mysql_query($queryetalase);
-		$ambilqueryetalase = mysql_fetch_row($eksqueryetalase);
-		$hasilqueryetalase = $ambilqueryetalase[0];
-	?>
+    $eks    = mysql_query($sql);
+    while ($hasil=mysql_fetch_array($eks)) {
+        $kode_obat=$hasil['kode_obat'];
+        $queryetalase = "select (sum(stok)) from etalase where kode_obat = '$kode_obat'";
+        $eksqueryetalase = mysql_query($queryetalase);
+        $ambilqueryetalase = mysql_fetch_row($eksqueryetalase);
+        $hasilqueryetalase = $ambilqueryetalase[0]; ?>
 	<tr>
 		<td width="50" align="center"><?php echo $counter; ?></td>
 		<td width="130"><?php echo $hasil[0]; ?></td>
 		<td width="400"><?php echo $hasil[1]; ?></td>
 		<td width="100" align="center"><?php echo $hasil[2]; ?></td>
-		<td width="100" align="center"><?php echo number_format($hasil[4],0,",","."); ?></td>
-		<td width="100" align="center"><?php echo number_format($hasil[5],0,",","."); ?></td>
+		<td width="100" align="center"><?php echo number_format($hasil[4], 0, ",", "."); ?></td>
+		<td width="100" align="center"><?php echo number_format($hasil[5], 0, ",", "."); ?></td>
 		<td width="100" align="center"><?php echo $hasil[3]; ?></td>
 		<td width="100" align="center"><?php echo $hasilqueryetalase; ?></td>
 		<td width="100" align="center"><?php echo $hasilqueryetalase+$hasil[3]; ?></td>
 		<td width="100" align="center"><?php echo $hasil[6]; ?></td>
 	</tr>
 	<?php
-	$counter++;
-	}
-	?>
+    $counter++;
+    } ?>
 </table>
 
 <?php
+
 } //tutup if(isset($_POST['cari']){
 ?>
 	 

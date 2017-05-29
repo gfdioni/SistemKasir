@@ -121,17 +121,14 @@ include("koneksi.php");
 </form>
 
 <?php
-if(isset($_POST['cari'])){
+if (isset($_POST['cari'])) {
+    $awal = @$_POST['periode_awal'];
+    $akhir = @$_POST['periode_akhir'];
+    $cari = @$_POST['kode_obat'];
 
-$awal = @$_POST['periode_awal'];
-$akhir = @$_POST['periode_akhir'];
-$cari = @$_POST['kode_obat'];
-
-$queryobat = "select nama_obat from obat where kode_obat = '$cari'";
-$eks_queryobat = mysql_query($queryobat);
-$hasil_eks_queryobat = mysql_fetch_array($eks_queryobat);
-
-?>
+    $queryobat = "select nama_obat from obat where kode_obat = '$cari'";
+    $eks_queryobat = mysql_query($queryobat);
+    $hasil_eks_queryobat = mysql_fetch_array($eks_queryobat); ?>
 <br />Kartu Stok Produk = <h5> <?php echo "$hasil_eks_queryobat[0] (kode $cari)"; ?></h5>
 
 <table border='1'>
@@ -162,18 +159,18 @@ df.tgl_obat_masuk between '$awal' and '$akhir' and
 o.kode_obat='$cari'
 order by df.tgl_obat_masuk desc";
 
-$tampil_data=mysql_query($query);
-$counter=1;
-$item=mysql_num_rows($tampil_data);
-while($data=mysql_fetch_array($tampil_data)){
-	echo("<tr align='center'> 
+    $tampil_data=mysql_query($query);
+    $counter=1;
+    $item=mysql_num_rows($tampil_data);
+    while ($data=mysql_fetch_array($tampil_data)) {
+        echo("<tr align='center'> 
 			<td>$counter</td>
 			<td>$data[0]</td> 
 			<td>$data[1]</td> 
 			<td>$data[2]</td> 
-			<td>$data[3]</td>");?>
+			<td>$data[3]</td>"); ?>
 			<td><?php echo date('d-m-Y', strtotime($data[12])); ?></td>
-			<td><?php echo number_format($data[4],0,",","."); ?></td> <?php echo("
+			<td><?php echo number_format($data[4], 0, ",", "."); ?></td> <?php echo("
 			<td>$data[5]</td>
 			<td>$data[6]</td>
 			<td>$data[7]</td>
@@ -183,15 +180,15 @@ while($data=mysql_fetch_array($tampil_data)){
 			<td>$data[11]</td>
 		</tr>
 		");
-		$counter++;
-}
-if($item==0){
-	echo ("Data Obat ini tidak tersedia");
-}
-?>
+        $counter++;
+    }
+    if ($item==0) {
+        echo("Data Obat ini tidak tersedia");
+    } ?>
 </table>
 
 <?php
+
 } //tutup if(isset($_POST['cari'])){
 ?>
 
