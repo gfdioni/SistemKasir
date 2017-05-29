@@ -12,6 +12,7 @@ class AuthController extends Controller
     public function login_page(LoginRequest $request) {
     	$method = $request->only('username', 'password');
     	$user = DB::table('users')->where('username', $method['username'])->get(array('password'))->first();
+    	print 'jsonp(';
     	return response(array($user))
     		->header('Content-Type', 'application/json')
     		->header('Access-Control-Allow-Origin', $_SERVER['HTTP_HOST'])

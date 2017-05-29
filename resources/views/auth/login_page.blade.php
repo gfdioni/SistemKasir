@@ -8,28 +8,31 @@
     <meta name="description" content="Login">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.js"></script>
+    <script type="text/javascript">
+    </script>
 </head>    
 <body>
 <center>
 <div class="cgu" id="dg">
     <div class="cg2">
         <div class="htr"><h3>Login Kasir</h3></div>
-        <form action="/login/action" method="post">
+        <form action="#">
         <div class="lin">
             <label>Username :</label>
         </div>
         <div class="in">
-            <input type="text" required name="username"size="28">
+            <input type="text" required name="username" size="28" id="u">
         </div>
         <div class="lin">
             <label>Password :</label>
         </div>
         <div class="in">
-            <input type="password" required name="password" size="28">
+            <input type="password" required name="password" size="28" id="p">
         </div>
         <div class="insb">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="submit" name="login" value="Login" id="sbbt">
+            <button type="button" id="sbbt" onclick="login();">Login</button>
         </div>
         </form>
         <div class="rgcg">
