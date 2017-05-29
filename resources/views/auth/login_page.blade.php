@@ -14,7 +14,7 @@
 <div class="cgu" id="dg">
     <div class="cg2">
         <div class="htr"><h3>Login Kasir</h3></div>
-        <form action="" method="post">
+        <form action="/login/action" method="post">
         <div class="lin">
             <label>Username :</label>
         </div>
