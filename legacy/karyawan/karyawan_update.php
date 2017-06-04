@@ -29,10 +29,10 @@ function validate_form ( )
 
 <?php
 include("koneksi.php");
-$username 	= $_GET['username'];
-$query		= "SELECT * FROM KARYAWAN WHERE username='$username'";
-$hasil		= mysql_query($query);
-$baris		= mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Karyawan
+$username    = $_GET['username'];
+$query        = "SELECT * FROM KARYAWAN WHERE username='$username'";
+$hasil        = mysql_query($query);
+$baris        = mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Karyawan
 ?>
 
 <form method="post" action="?page=karyawan_update_action" onsubmit="return validate_form()" name="update">
@@ -45,7 +45,7 @@ $baris		= mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel 
 <!--<tr>
 	<td>Jabatan</td> 
 	<td><select name="jabatan_lama" size="1">
-		<option value="<?php //echo("$baris[jabatan]"); ?>"> <?php //echo("$baris[jabatan]"); ?> </option>
+		<option value="<?php //echo("$baris[jabatan]");?>"> <?php //echo("$baris[jabatan]");?> </option>
 		</select>
 		
 		<select name="jabatan_baru" size="1">

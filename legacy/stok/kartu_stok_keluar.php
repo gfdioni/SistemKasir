@@ -121,17 +121,14 @@ include("koneksi.php");
 </form>
 
 <?php
-if(isset($_POST['cari'])){
+if (isset($_POST['cari'])) {
+    $awal = @$_POST['periode_awal'];
+    $akhir = @$_POST['periode_akhir'];
+    $cari = @$_POST['kode_obat'];
 
-$awal = @$_POST['periode_awal'];
-$akhir = @$_POST['periode_akhir'];
-$cari = @$_POST['kode_obat'];
-
-$queryobat = "select nama_obat from obat where kode_obat = '$cari'";
-$eks_queryobat = mysql_query($queryobat);
-$hasil_eks_queryobat = mysql_fetch_array($eks_queryobat);
-
-?>
+    $queryobat = "select nama_obat from obat where kode_obat = '$cari'";
+    $eks_queryobat = mysql_query($queryobat);
+    $hasil_eks_queryobat = mysql_fetch_array($eks_queryobat); ?>
 <br />Kartu Stok Keluar Produk = <h5> <?php echo "$hasil_eks_queryobat[0] (kode $cari) "; ?></h5>
 
 <?php
@@ -146,10 +143,10 @@ p.tgl_jual between '$awal' and '$akhir' and
 o.kode_obat='$cari'
 order by p.tgl_jual asc";
 
-$ambil = mysql_query($jml);
-$hasil = mysql_fetch_array($ambil);
-$total = $hasil[4];
-echo ("Total item keluar selama periode <b>$awal</b> sampai <b>$akhir</b> adalah = <b> $total </b> satuan");
+    $ambil = mysql_query($jml);
+    $hasil = mysql_fetch_array($ambil);
+    $total = $hasil[4];
+    echo("Total item keluar selama periode <b>$awal</b> sampai <b>$akhir</b> adalah = <b> $total </b> satuan");
 
 
 // =============== tampilkan data rinci obat yang keluar ===========================
@@ -178,11 +175,11 @@ o.kode_obat='$cari'
 group by dp.no_batch,p.tgl_jual,p.no_struk
 order by p.tgl_jual asc";
 
-$tampil_data=mysql_query($query);
-$counter=1;
-$item=mysql_num_rows($tampil_data);
-while($data=mysql_fetch_array($tampil_data)){
-	echo("<tr align='center'> 
+    $tampil_data=mysql_query($query);
+    $counter=1;
+    $item=mysql_num_rows($tampil_data);
+    while ($data=mysql_fetch_array($tampil_data)) {
+        echo("<tr align='center'> 
 			<td>$counter</td>
 			<td>$data[0]</td> 
 			<td>$data[1]</td> 
@@ -194,15 +191,15 @@ while($data=mysql_fetch_array($tampil_data)){
 			<td>$data[7]</td>
 		</tr>
 		");
-		$counter++;
-}
-if($item==0){
-	echo ("Data Obat ini tidak tersedia");
-}
-?>
+        $counter++;
+    }
+    if ($item==0) {
+        echo("Data Obat ini tidak tersedia");
+    } ?>
 </table>
 
 <?php
+
 } //tutup if(isset($_POST['cari'])){
 ?>
 

@@ -1,18 +1,18 @@
 <?php
 include("koneksi.php");
 
-$no_struk 	= $_GET['no_struk'];
-$kode_obat 	= $_GET['kode_obat'];
-$no_batch 	= $_GET['no_batch'];
-$harga	 	= $_GET['harga'];
-$qty	 	= $_GET['qty'];
-$nama_obat	= $_GET['nama_obat'];
-$id			= $_GET['id'];
+$no_struk    = $_GET['no_struk'];
+$kode_obat    = $_GET['kode_obat'];
+$no_batch    = $_GET['no_batch'];
+$harga        = $_GET['harga'];
+$qty        = $_GET['qty'];
+$nama_obat    = $_GET['nama_obat'];
+$id            = $_GET['id'];
 
-$query		= "select o.kode_obat, o.nama_obat, o.satuan, o.harga, dp.no_batch, dp.jumlah from obat o, batch b, detail_penjualan dp
+$query        = "select o.kode_obat, o.nama_obat, o.satuan, o.harga, dp.no_batch, dp.jumlah from obat o, batch b, detail_penjualan dp
 where o.kode_obat = b.kode_obat and dp.no_batch = b.no_batch and dp.no_struk = '$no_struk' and dp.no_batch = '$no_batch'";
-$hasil		= mysql_query($query);
-$baris		= mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Obat
+$hasil        = mysql_query($query);
+$baris        = mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Obat
 ?>
 
 UBAH DATA PENJUALAN <br /><br />

@@ -18,19 +18,18 @@ $no_struk = $_POST['no_struk'];
 </form>
 
 <?php
-if(isset($_POST['lihat'])){ //script ini dilkukan saat button bernama "edit" ditekan ?>
+if (isset($_POST['lihat'])) { //script ini dilkukan saat button bernama "edit" ditekan?>
 	<br />
 	
 	<?php
-	$query_penj			= "select * from penjualan where no_struk = '$no_struk'";
-	$eks_query_penj		= mysql_query($query_penj);
-	$ambil_query_penj	= mysql_fetch_array($eks_query_penj);
-	$tgl	= $ambil_query_penj[1];
-	$jam	= $ambil_query_penj[6];
-	$user	= $ambil_query_penj[2];
-	$total	= $ambil_query_penj[3];
-	$dokter	= $ambil_query_penj[5];
-	?>
+    $query_penj            = "select * from penjualan where no_struk = '$no_struk'";
+    $eks_query_penj        = mysql_query($query_penj);
+    $ambil_query_penj    = mysql_fetch_array($eks_query_penj);
+    $tgl    = $ambil_query_penj[1];
+    $jam    = $ambil_query_penj[6];
+    $user    = $ambil_query_penj[2];
+    $total    = $ambil_query_penj[3];
+    $dokter    = $ambil_query_penj[5]; ?>
 	
 	<h5>Faktur Penjualan</h5> 
 	<table>
@@ -45,17 +44,17 @@ if(isset($_POST['lihat'])){ //script ini dilkukan saat button bernama "edit" dit
 		<tr>
 			<td>Kepada</td>
 			<td>:</td>
-			<td><?php echo $dokter ;?></td>
+			<td><?php echo $dokter ; ?></td>
 		</tr>
 		<tr>
 			<td>Operator</td>
 			<td>:</td>
-			<td><?php echo $user;?></td>
+			<td><?php echo $user; ?></td>
 		</tr>
 		<tr>
 			<td>Total</td>
 			<td>:</td>
-			<td><b><?php echo"Rp. ".number_format($total,0,",",".").",00"; ?></b></td>
+			<td><b><?php echo"Rp. ".number_format($total, 0, ",", ".").",00"; ?></b></td>
 		</tr>
 	</table>
 	
@@ -72,27 +71,28 @@ if(isset($_POST['lihat'])){ //script ini dilkukan saat button bernama "edit" dit
 			<td width="100">Total</td>
 		</tr>
 		<?php
-		$no_struk=$_POST['no_struk'];
-		$counter=1;
-		$query="select o.kode_obat, left(o.nama_obat,28), o.satuan, dp.harga, dp.no_batch, dp.jumlah, dp.diskon, dp.total_harga, dp.id from obat o, batch b, 					
+        $no_struk=$_POST['no_struk'];
+    $counter=1;
+    $query="select o.kode_obat, left(o.nama_obat,28), o.satuan, dp.harga, dp.no_batch, dp.jumlah, dp.diskon, dp.total_harga, dp.id from obat o, batch b, 					
 				detail_penjualan dp where o.kode_obat = b.kode_obat and dp.no_batch = b.no_batch and dp.no_struk = $no_struk order by o.nama_obat";
-		$eks_query=mysql_query($query);
-		while($data=mysql_fetch_row($eks_query)){ ?>
+    $eks_query=mysql_query($query);
+    while ($data=mysql_fetch_row($eks_query)) {
+        ?>
 		<tr bgcolor="#99FFCC" align="center">
 			<td><?php echo "$counter"; ?></td>
 			<td><?php echo "$data[0]"; ?></td>
 			<td><?php echo "$data[1]"; ?></td>
 			<td><?php echo "$data[2]"; ?></td>
-			<td><?php echo number_format($data[3],0,",","."); ?></td>
+			<td><?php echo number_format($data[3], 0, ",", "."); ?></td>
 			<td><?php echo "$data[5]"; ?></td>
 			<td><?php echo "$data[6]"; ?></td>
-			<td><?php echo number_format(($data[3]*$data[5]*($data[6]/100)),0,",","."); ?></td>
-			<td><?php echo number_format($data[7],0,",","."); ?></td>
+			<td><?php echo number_format(($data[3]*$data[5]*($data[6]/100)), 0, ",", "."); ?></td>
+			<td><?php echo number_format($data[7], 0, ",", "."); ?></td>
 		</tr>
 		<?php
-		$counter++;
-		} //tutup while($data=mysql_fetch_row($eks_query){
-		?>
+        $counter++;
+    } //tutup while($data=mysql_fetch_row($eks_query){
+        ?>
 	</table>
 	
 	<table border="0">

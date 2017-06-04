@@ -18,7 +18,7 @@ class PMA_Tracker
     /**
      * Whether tracking is ready.
      */
-    static protected $enabled = false;
+    protected static $enabled = false;
 
     /**
      * Defines the internal PMA table which contains tracking data.
@@ -26,7 +26,7 @@ class PMA_Tracker
      * @access  protected
      * @var string
      */
-    static protected $pma_table;
+    protected static $pma_table;
 
     /**
      * Defines the usage of DROP TABLE statment in SQL dumps.
@@ -34,7 +34,7 @@ class PMA_Tracker
      * @access protected
      * @var boolean
      */
-    static protected $add_drop_table;
+    protected static $add_drop_table;
 
     /**
      * Defines the usage of DROP VIEW statment in SQL dumps.
@@ -42,7 +42,7 @@ class PMA_Tracker
      * @access protected
      * @var boolean
      */
-    static protected $add_drop_view;
+    protected static $add_drop_view;
 
     /**
      * Defines the usage of DROP DATABASE statment in SQL dumps.
@@ -50,21 +50,21 @@ class PMA_Tracker
      * @access protected
      * @var boolean
      */
-    static protected $add_drop_database;
+    protected static $add_drop_database;
 
     /**
      * Defines auto-creation of tracking versions.
      *
      * @var boolean
      */
-    static protected $version_auto_create;
+    protected static $version_auto_create;
 
     /**
      * Defines the default set of tracked statements.
      *
      * @var string
      */
-    static protected $default_tracking_set;
+    protected static $default_tracking_set;
 
     /**
      * Initializes settings. See phpMyAdmin/Documentation.html.
@@ -72,7 +72,7 @@ class PMA_Tracker
      * @static
      *
      */
-    static public function init()
+    public static function init()
     {
         self::$pma_table = PMA_backquote($GLOBALS['cfg']['Server']['pmadb']) .".".
                            PMA_backquote($GLOBALS['cfg']['Server']['tracking']);
@@ -86,17 +86,16 @@ class PMA_Tracker
         self::$default_tracking_set = $GLOBALS['cfg']['Server']['tracking_default_statements'];
 
         self::$version_auto_create = $GLOBALS['cfg']['Server']['tracking_version_auto_create'];
-
     }
 
     /**
-     * Actually enables tracking. This needs to be done after all 
+     * Actually enables tracking. This needs to be done after all
      * underlaying code is initialized.
      *
      * @static
      *
      */
-    static public function enable()
+    public static function enable()
     {
         self::$enabled = true;
     }
@@ -108,7 +107,7 @@ class PMA_Tracker
      *
      * @return boolean (true=on|false=off)
      */
-    static public function isActive()
+    public static function isActive()
     {
         if (! self::$enabled) {
             return false;
@@ -136,7 +135,7 @@ class PMA_Tracker
      * @param string $tablename
      * @return string
      */
-    static public function getStatementDropTable($tablename)
+    public static function getStatementDropTable($tablename)
     {
         return 'DROP TABLE IF EXISTS ' . $tablename;
     }
@@ -147,7 +146,7 @@ class PMA_Tracker
      * @param string $viewname
      * @return string
      */
-    static public function getStatementDropView($viewname)
+    public static function getStatementDropView($viewname)
     {
         return 'DROP VIEW IF EXISTS ' . $viewname;
     }
@@ -158,7 +157,7 @@ class PMA_Tracker
      * @param string $dbname
      * @return string
      */
-    static public function getStatementDropDatabase($dbname)
+    public static function getStatementDropDatabase($dbname)
     {
         return 'DROP DATABASE IF EXISTS ' . $dbname;
     }
@@ -172,13 +171,12 @@ class PMA_Tracker
      *
      * @return string the name of table
      */
-    static protected function getTableName($string)
+    protected static function getTableName($string)
     {
         if (strstr($string, '.')) {
             $temp = explode('.', $string);
             $tablename = $temp[1];
-        }
-        else {
+        } else {
             $tablename = $string;
         }
 
@@ -203,7 +201,7 @@ class PMA_Tracker
      *
      * @return boolean true or false
      */
-    static public function isTracked($dbname, $tablename)
+    public static function isTracked($dbname, $tablename)
     {
         if (! self::$enabled) {
             return false;
@@ -237,7 +235,7 @@ class PMA_Tracker
      *
      * @return string Comment, contains date and username
      */
-    static public function getLogComment()
+    public static function getLogComment()
     {
         $date = date('Y-m-d H:i:s');
 
@@ -258,7 +256,7 @@ class PMA_Tracker
      *
      * @return int result of version insertion
      */
-    static public function createVersion($dbname, $tablename, $version, $tracking_set = '', $is_view = false)
+    public static function createVersion($dbname, $tablename, $version, $tracking_set = '', $is_view = false)
     {
         global $sql_backquotes;
 
@@ -289,7 +287,7 @@ class PMA_Tracker
 
         $indexes = array();
 
-        while($row = PMA_DBI_fetch_array($sql_result)) {
+        while ($row = PMA_DBI_fetch_array($sql_result)) {
             $indexes[] = $row;
         }
 
@@ -304,7 +302,6 @@ class PMA_Tracker
         if (self::$add_drop_table == true && $is_view == false) {
             $create_sql .= self::getLogComment() .
                            self::getStatementDropTable(PMA_backquote($tablename)) . ";\n";
-
         }
 
         if (self::$add_drop_view == true && $is_view == true) {
@@ -353,16 +350,16 @@ class PMA_Tracker
 
 
     /**
-     * Removes all tracking data for a table 
+     * Removes all tracking data for a table
      *
      * @static
      *
      * @param  string $dbname       name of database
-     * @param  string $tablename    name of table 
+     * @param  string $tablename    name of table
      *
      * @return int result of version insertion
      */
-    static public function deleteTracking($dbname, $tablename)
+    public static function deleteTracking($dbname, $tablename)
     {
         $sql_query =
         "/*NOTRACK*/\n" .
@@ -385,7 +382,7 @@ class PMA_Tracker
      *
      * @return int result of version insertion
      */
-    static public function createDatabaseVersion($dbname, $version, $query, $tracking_set = 'CREATE DATABASE,ALTER DATABASE,DROP DATABASE')
+    public static function createDatabaseVersion($dbname, $version, $query, $tracking_set = 'CREATE DATABASE,ALTER DATABASE,DROP DATABASE')
     {
         global $sql_backquotes;
 
@@ -446,11 +443,11 @@ class PMA_Tracker
      * @param  string $dbname       name of database
      * @param  string $tablename    name of table
      * @param  string $version      version
-     * @param  integer $new_state   the new state of tracking 
+     * @param  integer $new_state   the new state of tracking
      *
      * @return int result of SQL query
      */
-    static private function changeTracking($dbname, $tablename, $version, $new_state)
+    private static function changeTracking($dbname, $tablename, $version, $new_state)
     {
         $sql_query =
         " UPDATE " . self::$pma_table .
@@ -475,9 +472,9 @@ class PMA_Tracker
      *
      * @return int result of SQL query
      */
-    static public function activateTracking($dbname, $tablename, $version)
+    public static function activateTracking($dbname, $tablename, $version)
     {
-        return self::changeTracking($dbname, $tablename, $version, 1); 
+        return self::changeTracking($dbname, $tablename, $version, 1);
     }
 
 
@@ -492,9 +489,9 @@ class PMA_Tracker
      *
      * @return int result of SQL query
      */
-    static public function deactivateTracking($dbname, $tablename, $version)
+    public static function deactivateTracking($dbname, $tablename, $version)
     {
-        return self::changeTracking($dbname, $tablename, $version, 0); 
+        return self::changeTracking($dbname, $tablename, $version, 0);
     }
 
 
@@ -510,7 +507,7 @@ class PMA_Tracker
      *
      * @return int (-1 if no version exists | >  0 if a version exists)
      */
-    static public function getVersion($dbname, $tablename, $statement = null)
+    public static function getVersion($dbname, $tablename, $statement = null)
     {
         $sql_query =
         " SELECT MAX(version) FROM " . self::$pma_table .
@@ -542,7 +539,7 @@ class PMA_Tracker
      *
      * @return mixed record DDM log, DDL log, structure snapshot, tracked statements.
      */
-    static public function getTrackedData($dbname, $tablename, $version)
+    public static function getTrackedData($dbname, $tablename, $version)
     {
         if (! isset(self::$pma_table)) {
             self::init();
@@ -558,8 +555,8 @@ class PMA_Tracker
         $mixed = PMA_DBI_fetch_array(PMA_query_as_controluser($sql_query));
 
         // Parse log
-        $log_schema_entries = explode('# log ',  $mixed['schema_sql']);
-        $log_data_entries   = explode('# log ',  $mixed['data_sql']);
+        $log_schema_entries = explode('# log ', $mixed['schema_sql']);
+        $log_data_entries   = explode('# log ', $mixed['data_sql']);
 
         $ddl_date_from = $date = date('Y-m-d H:i:s');
 
@@ -647,7 +644,7 @@ class PMA_Tracker
      * @return mixed Array containing identifier, type and tablename.
      *
      */
-    static public function parseQuery($query)
+    public static function parseQuery($query)
     {
 
         // Usage of PMA_SQP does not work here
@@ -678,8 +675,8 @@ class PMA_Tracker
         $result['type']         = 'DDL';
 
         // Parse CREATE VIEW statement
-        if (in_array('CREATE', $tokens) == true && 
-           in_array('VIEW', $tokens) == true && 
+        if (in_array('CREATE', $tokens) == true &&
+           in_array('VIEW', $tokens) == true &&
            in_array('AS', $tokens) == true) {
             $result['identifier'] = 'CREATE VIEW';
 
@@ -689,9 +686,9 @@ class PMA_Tracker
         }
 
         // Parse ALTER VIEW statement
-        if (in_array('ALTER', $tokens) == true && 
-           in_array('VIEW', $tokens) == true && 
-           in_array('AS', $tokens) == true && 
+        if (in_array('ALTER', $tokens) == true &&
+           in_array('VIEW', $tokens) == true &&
+           in_array('AS', $tokens) == true &&
            ! isset($result['identifier'])) {
             $result['identifier'] = 'ALTER VIEW';
 
@@ -707,7 +704,7 @@ class PMA_Tracker
             $prefix  = explode('DROP VIEW ', $query);
             $str = strstr($prefix[1], 'IF EXISTS');
 
-            if ($str == FALSE ) {
+            if ($str == false) {
                 $str = $prefix[1];
             }
             $result['tablename'] = self::getTableName($str);
@@ -741,7 +738,7 @@ class PMA_Tracker
         }
 
         // Parse CREATE TABLE statement
-        if (! isset($result['identifier']) && substr($query, 0, 12) == 'CREATE TABLE' ) {
+        if (! isset($result['identifier']) && substr($query, 0, 12) == 'CREATE TABLE') {
             $result['identifier'] = 'CREATE TABLE';
             $query   = str_replace('IF NOT EXISTS', '', $query);
             $prefix  = explode('CREATE TABLE ', $query);
@@ -765,30 +762,30 @@ class PMA_Tracker
             $prefix  = explode('DROP TABLE ', $query);
             $str = strstr($prefix[1], 'IF EXISTS');
 
-            if ($str == FALSE ) {
+            if ($str == false) {
                 $str = $prefix[1];
             }
             $result['tablename'] = self::getTableName($str);
         }
 
         // Parse CREATE INDEX statement
-        if (! isset($result['identifier']) && 
-            (   substr($query, 0, 12) == 'CREATE INDEX' || 
-                substr($query, 0, 19) == 'CREATE UNIQUE INDEX' || 
+        if (! isset($result['identifier']) &&
+            (substr($query, 0, 12) == 'CREATE INDEX' ||
+                substr($query, 0, 19) == 'CREATE UNIQUE INDEX' ||
                 substr($query, 0, 20) == 'CREATE SPATIAL INDEX'
             )
         ) {
-             $result['identifier'] = 'CREATE INDEX';
-             $prefix = explode('ON ', $query);
-             $suffix = explode('(', $prefix[1]);
-             $result['tablename'] = self::getTableName($suffix[0]);
+            $result['identifier'] = 'CREATE INDEX';
+            $prefix = explode('ON ', $query);
+            $suffix = explode('(', $prefix[1]);
+            $result['tablename'] = self::getTableName($suffix[0]);
         }
 
         // Parse DROP INDEX statement
         if (! isset($result['identifier']) && substr($query, 0, 10) == 'DROP INDEX') {
-             $result['identifier'] = 'DROP INDEX';
-             $prefix = explode('ON ', $query);
-             $result['tablename'] = self::getTableName($prefix[1]);
+            $result['identifier'] = 'DROP INDEX';
+            $prefix = explode('ON ', $query);
+            $result['tablename'] = self::getTableName($prefix[1]);
         }
 
         // Parse RENAME TABLE statement
@@ -816,7 +813,7 @@ class PMA_Tracker
         }
 
         // Parse INSERT INTO statement
-        if (! isset($result['identifier']) && substr($query, 0, 11 ) == 'INSERT INTO') {
+        if (! isset($result['identifier']) && substr($query, 0, 11) == 'INSERT INTO') {
             $result['identifier'] = 'INSERT';
             $prefix  = explode('INSERT INTO', $query);
             $suffix  = explode('(', $prefix[1]);
@@ -824,7 +821,7 @@ class PMA_Tracker
         }
 
         // Parse DELETE statement
-        if (! isset($result['identifier']) && substr($query, 0, 6 ) == 'DELETE') {
+        if (! isset($result['identifier']) && substr($query, 0, 6) == 'DELETE') {
             $result['identifier'] = 'DELETE';
             $prefix  = explode('FROM ', $query);
             $suffix  = explode(' ', $prefix[1]);
@@ -832,7 +829,7 @@ class PMA_Tracker
         }
 
         // Parse TRUNCATE statement
-        if (! isset($result['identifier']) && substr($query, 0, 8 ) == 'TRUNCATE') {
+        if (! isset($result['identifier']) && substr($query, 0, 8) == 'TRUNCATE') {
             $result['identifier'] = 'TRUNCATE';
             $prefix  = explode('TRUNCATE', $query);
             $result['tablename'] = self::getTableName($prefix[1]);
@@ -849,7 +846,7 @@ class PMA_Tracker
      * @static
      * @param   string $query a SQL query
      */
-    static public function handleQuery($query)
+    public static function handleQuery($query)
     {
         // If query is marked as untouchable, leave
         if (strstr($query, "/*NOTRACK*/")) {
@@ -876,7 +873,7 @@ class PMA_Tracker
 
             // If version not exists and auto-creation is enabled
             if (self::$version_auto_create == true
-                && self::isTracked($dbname, $result['tablename']) == false 
+                && self::isTracked($dbname, $result['tablename']) == false
                 && $version == -1) {
                 // Create the version
 
@@ -938,4 +935,3 @@ class PMA_Tracker
         }
     }
 }
-?>

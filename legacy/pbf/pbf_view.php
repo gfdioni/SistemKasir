@@ -35,11 +35,11 @@ echo("<tr align='center' bgcolor='blue'>
 		<td width='100'>Telepon</td>
 		<td width='150' colspan='2'>Operasi</td></tr>
 	 ");
-	
+    
 $query="SELECT * FROM PBF ORDER BY kode_pbf";
 $tampil_data=mysql_query($query);
-while($data=mysql_fetch_row($tampil_data)){
-	echo("<tr align='center'> 
+while ($data=mysql_fetch_row($tampil_data)) {
+    echo("<tr align='center'> 
 			<td>$data[0]</td> 
 			<td>$data[1]</td> 
 			<td>$data[2]</td> 

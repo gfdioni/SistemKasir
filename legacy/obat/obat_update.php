@@ -1,9 +1,9 @@
 <?php
 include("koneksi.php");
-$kode_obat 	= $_GET['kode_obat'];
-$query		= "SELECT * FROM OBAT WHERE kode_obat='$kode_obat'";
-$hasil		= mysql_query($query);
-$baris		= mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Obat
+$kode_obat    = $_GET['kode_obat'];
+$query        = "SELECT * FROM OBAT WHERE kode_obat='$kode_obat'";
+$hasil        = mysql_query($query);
+$baris        = mysql_fetch_array($hasil); // untuk mengambil array ke - n dari tabel Obat
 ?>
 
 <b>UBAH DATA OBAT</b> <br /><br /><hr><br />

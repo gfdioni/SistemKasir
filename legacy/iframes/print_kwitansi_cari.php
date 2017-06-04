@@ -16,28 +16,28 @@ echo "Data Resep/Kwitansi dengan keyword = ' $cari_resep '";
 		<td width="100">Tanggal</td>
 	</tr>
 <?php
-$count		= 1;
-$query		= "select * from resep where (pasien like '%$cari_resep%' OR dokter like '%$cari_resep%' OR no like '%$cari_resep%') order by tgl DESC";
-$eks_query	= mysql_query($query);
-while($ambil_query	= mysql_fetch_array($eks_query)){
-	$no		= $ambil_query[0];
-	$pasien	= $ambil_query[1];
-	$uang	= $ambil_query[2];
-	$untuk	= $ambil_query[3];
-	$dokter	= $ambil_query[4];
-	$angka	= $ambil_query[5];
-	$tgl	= $ambil_query[6];?>
+$count        = 1;
+$query        = "select * from resep where (pasien like '%$cari_resep%' OR dokter like '%$cari_resep%' OR no like '%$cari_resep%') order by tgl DESC";
+$eks_query    = mysql_query($query);
+while ($ambil_query    = mysql_fetch_array($eks_query)) {
+    $no        = $ambil_query[0];
+    $pasien    = $ambil_query[1];
+    $uang    = $ambil_query[2];
+    $untuk    = $ambil_query[3];
+    $dokter    = $ambil_query[4];
+    $angka    = $ambil_query[5];
+    $tgl    = $ambil_query[6]; ?>
 
 	<tr align="center">
 		<td><?php echo $count; ?></td>
 		<td><?php echo $no; ?></td>
 		<td><?php echo $pasien; ?></td>
 		<td><?php echo $dokter; ?></td>
-		<td><?php echo "Rp. ".number_format($angka,0,",",".").",00"; ?></td>
+		<td><?php echo "Rp. ".number_format($angka, 0, ",", ".").",00"; ?></td>
 		<td><?php echo $untuk; ?></td>
 		<td><?php echo $tgl ?></td>
 	</tr>
 	<?php
-	$count++;
-	} // TUTUP while($ambil_query	= mysql_fetch_array($eks_query)){?>
+    $count++;
+} // TUTUP while($ambil_query	= mysql_fetch_array($eks_query)){?>
 </table>
