@@ -6,6 +6,7 @@
     <script type="text/javascript">
         
     </script>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/login.css') }}">
     <style type="text/css">
         /*background-image: url(); */
         background-color: #cccccc;
