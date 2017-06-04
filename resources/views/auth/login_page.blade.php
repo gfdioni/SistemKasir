@@ -1,28 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    </head>
-
-    <body>
-        <form action="#" method="post">
-            <table border="0" align="center">
-                <tr>
-                    <td>Username</td>
-                    <td>:</td>
-                    <td><input type="text" name="username" placeholder="Username.." autocomplete="off" autofocus/></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td>:</td>
-                    <td><input type="password" name="password" placeholder="Password.." /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" value="Login"></td>
-                </tr>
-            </table>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <script type="text/javascript" src="{{ URL::asset('/js/login.js') }}"></script>
+    <script type="text/javascript">
+        
+    </script>
+    <style type="text/css">
+        /*background-image: url(); */
+        background-color: #cccccc;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: top; 
+    </style>
+</head>
+<body>
+<center>
+<div class="cgu" id="dg">
+    <div class="cg2">
+        <div class="htr"><h3>Login</h3></div>
+        <form id="f" action="javascript:void(0);" method="post">
+        <div class="lin">
+            <label>Username :</label>
+        </div>
+        <div class="in">
+            <input type="text" id="u" name="username" size="28" required>
+        </div>
+        <div class="lin">
+            <label>Password :</label>
+        </div>
+        <div class="in">
+            <input type="password" id="p" name="password" size="28" required>
+        </div>
+        <div class="insb">
+            <input type="submit" name="login" value="Login" id="b">
+        </div>
         </form>
-
-    </body>
+        <div class="rgcg">
+            <p>Belum punya akun ?</p>
+            <a href="/register"><button class="rgbutton">Daftar</button></a>
+        </div>
+    </div>
+</div>
+</center>
+</body>
 </html>
