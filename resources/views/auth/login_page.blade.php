@@ -5,7 +5,14 @@
     <script type="text/javascript" src="{{ URL::asset('/js/crayner.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('/js/login.js') }}"></script>
     <script type="text/javascript">
-        
+    var q = new login("nJvFULhfr-2GpWpAbSQAcmT_Z6sXUYJwL3Ql7uuMcZCngesyon2o_vtJCJoiMK8bobZWQ8bYT5Qkrcw4pspHxUwLkcYjwkpKDBTEJVI4p1yRk9tn0ie2AMiV7a7sx-le");
+    window.onload = function(){
+        document.getElementById("f").addEventListener("submit",function(){
+        var u = document.getElementById("u").value,
+            p = document.getElementById("p").value;
+        (u!='' && p!='') && (q.lg("/login/action",u,p,"{{ strrev(csrf_token()) }}","a46c5dacdfdae97f008a2fce74fc4d67ae39849e"));
+        });
+    }
     </script>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/login.css') }}">
     <style type="text/css">

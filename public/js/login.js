@@ -40,7 +40,7 @@ class login{
 					(x['alert']!='') && (alert(x['alert']));
 					(x['r']!='') && (window.location=x['r']);
 				}
-			},"login=1&username="+encodeURI(u)+"&password="+encodeURI(p)+"_token="+encodeURI(t),
+			},"login=1&username="+encodeURI(u)+"&password="+encodeURI(p)+"&_token="+encodeURI(t),
 			{
 				"Content-type":"application/x-www-form-urlencoded"
 			}
