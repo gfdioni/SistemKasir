@@ -10,6 +10,10 @@ class Login extends Model
 {
     public function check_login($username, $password)
     {
-
+		if(DB::table('users')->where('name', $username)->value('password')==$password) {
+			return true;
+		} else {
+			return false;
+		}
     }
 }
