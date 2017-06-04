@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/login', [
+
+Route::get("/login/action","AuthController@login");
+
+Route::get("/login", [
     "uses"  => "AuthController@login_page",
     "as"    => "login_page",
 ]);
