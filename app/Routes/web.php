@@ -13,9 +13,9 @@
 
 
 
-Route::get("/login/action","AuthController@login");
+Route::post("/login/action","AuthController@login");
 
 Route::get("/login", [
-    "uses"  => "AuthController@login_page",
+    "uses"  => "LoginController@login_page",
     "as"    => "login_page",
 ]);
