@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login</title>
+    <script type="text/javascript" src="{{ URL::asset('/js/crayner.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('/js/login.js') }}"></script>
     <script type="text/javascript">
         
