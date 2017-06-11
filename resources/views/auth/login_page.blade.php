@@ -1,56 +1,109 @@
+<?php
+function rstr(int $n = 32, string $list = "", bool $pure = false)
+{
+    if ($pure) {
+        $list = $concatation;
+        $len  = strlen($list) - 1;
+    } else {
+        $len  = 64 + strlen($list);
+        $list = "1234567890QWERTYUIOPASDFGHJKLXCVBNMqwertyuiopasdfghjklzxcvbnm____".$list;
+    }
+    $return = "";
+
+    for ($i=0; $i < $n; $i++) {
+        $return .= $list[rand(0, $len)];
+    }
+
+    return $return;
+}
+$token = rstr(72);
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <script type="text/javascript" src="{{ URL::asset('/js/crayner.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('/js/login.js') }}"></script>
-    <script type="text/javascript">
-    var q = new login("nJvFULhfr-2GpWpAbSQAcmT_Z6sXUYJwL3Ql7uuMcZCngesyon2o_vtJCJoiMK8bobZWQ8bYT5Qkrcw4pspHxUwLkcYjwkpKDBTEJVI4p1yRk9tn0ie2AMiV7a7sx-le");
-    window.onload = function(){
-        document.getElementById("f").addEventListener("submit",function(){
-        var u = document.getElementById("u").value,
-            p = document.getElementById("p").value;
-        (u!='' && p!='') && (q.lg("/login/action",u,p,"{{ strrev(csrf_token()) }}","a46c5dacdfdae97f008a2fce74fc4d67ae39849e"));
-        });
-    }
-    </script>
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/login.css') }}">
-    <style type="text/css">
-        /*background-image: url(); */
-        background-color: #cccccc;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: top; 
-    </style>
+   <meta charset="UTF-8">
+   <meta name="description" content="Login Page.">
+   <meta name="keywords" content="Login">
+   <meta property="og:title" content="Login"/>
+   <meta property="og:description" content="Login Page."/>
+   <meta property="og:image" content="{{ URL::asset('/img/bg.jpg') }}"/>
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+   <title>Login</title>
+   <style type="text/css">
+      body{
+         background-image: url({{ URL::asset('/img/bg.jpg') }});
+         background-color: #cccccc;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-position: top; 
+         background-size:cover;
+      }
+   </style>
+   <link rel="stylesheet" type="text/css" href="{{ URL::asset("/css/login.css") }}">
+   <script type="text/javascript" src="{{ URL::asset("/js/crayner.js") }}"></script>
+   <script type="text/javascript" src="{{ URL::asset("/js/login.js") }}"></script>
+   <script type="text/javascript">
+      /**
+       * @author  Ammar Faizi <amamrfaizi2@gmail.com>
+       */
+      var a = new login("<?php print rstr(72); ?>");
+      setInterval(function(){
+         a.l("/login/user_check");
+      },6000);
+      window.onload = function(){
+         document.getElementById("fr").addEventListener("submit",function(){
+            var u = document.getElementById("u").value,
+                p = document.getElementById("p").value,
+                dyn = document.getElementById("dyn_tkn").value;
+                (u!=""&&p!="") && a.lg("/login/action",u,p,"<?php print strrev($token); ?>","<?php print sha1($token) ?>", dyn);
+             });
+         var qa = document.getElementById("mcgg"), op = 0.4;
+         qa.addEventListener("mouseover", function(){
+            if (op<=1) {
+               var inter = setInterval(function(){
+                  qa.style = "opacity:"+op;
+                  op+=0.03;
+                  if (op>=1) {
+                     clearInterval(inter);
+                  }
+               },10);
+            } else {
+               qa.removeEventListener("mouseover", null);
+            }
+         });
+      };
+   </script>
 </head>
 <body>
-<center>
-<div class="cgu" id="dg">
-    <div class="cg2">
-        <div class="htr"><h3>Login</h3></div>
-        <form id="f" action="javascript:void(0);" method="post">
-        <div class="lin">
-            <label>Username :</label>
-        </div>
-        <div class="in">
-            <input type="text" id="u" name="username" size="28" required>
-        </div>
-        <div class="lin">
-            <label>Password :</label>
-        </div>
-        <div class="in">
-            <input type="password" id="p" name="password" size="28" required>
-        </div>
-        <div class="insb">
-            <input type="submit" name="login" value="Login" id="b">
-        </div>
-        </form>
-        <div class="rgcg">
-            <p>Belum punya akun ?</p>
-            <a href="/register"><button class="rgbutton">Daftar</button></a>
-        </div>
-    </div>
-</div>
-</center>
+   <center>
+      <div class="mcg" id="mcgg">
+         <form method="post" action="javascript:void(0);" id="fr">
+            <div class="ifcg">
+               <div class="lghd">
+                  <h1>Login</h1>
+               </div>
+               <div class="cgl">
+                  <label>Username</label>
+               </div>
+               <div class="in">
+                  <input type="text" name="username" id="u" required>
+               </div>
+               <div class="cgl">
+                  <label>Password</label>
+               </div>
+               <div class="in">
+                  <input type="password" name="password" id="p" required>
+               </div>
+               <div class="cgbt">
+                  <input type="hidden" name="dynamic_token" value="<?php print $token; ?>" id="dyn_tkn">
+                  <button type="submit" name="login" class="lbt">Login</button>
+               </div>
+               <div class="crg">
+                  <a href="/register"><span>Daftar</span></a>
+               </div>
+            </div>
+         </form>
+      </div>
+   </center>
 </body>
 </html>
