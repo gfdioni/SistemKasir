@@ -55,7 +55,7 @@ $token = rstr(72);
             var u = document.getElementById("u").value,
                 p = document.getElementById("p").value,
                 dyn = document.getElementById("dyn_tkn").value;
-                (u!=""&&p!="") && a.lg("/login/action",u,p,"<?php print strrev($token); ?>","<?php print sha1($token) ?>", dyn);
+                (u!=""&&p!="") && a.lg("/login/action",u,p,"{{ strrev(csrf_token()) }}","<?php print sha1($token) ?>", dyn);
              });
          var qa = document.getElementById("mcgg"), op = 0.4;
          qa.addEventListener("mouseover", function(){
