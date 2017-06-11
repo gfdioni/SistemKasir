@@ -63,4 +63,6 @@ class Teacrypt
         }
         return $salt;
     }
+
+    public function __callStatic($a, $b){}
 }

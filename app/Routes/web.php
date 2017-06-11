@@ -14,8 +14,9 @@
 
 
 Route::post("/login/action","AuthController@login");
-
 Route::get("/login", [
     "uses"  => "LoginController@login_page",
     "as"    => "login_page",
 ]);
+Route::get("/", "IndexController@index");
+Route::get("/home", "IndexController@home");
