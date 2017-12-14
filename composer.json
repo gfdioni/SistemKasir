@@ -22,7 +22,13 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "psr-0":{
+            "WhiteHat": "libraries/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
